@@ -14,8 +14,6 @@ export default function Hero() {
     }
   };
 
-  const currentQuarter = `Q${Math.floor(new Date().getMonth() / 3) + 1} ${new Date().getFullYear()}`;
-
   return (
     <section
       id="home"
@@ -34,17 +32,6 @@ export default function Hero() {
         {/* Left Side: Headline & Copy */}
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
           
-          {/* Live Availability Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 border border-[#C15F3C]/30 text-[11px] font-extrabold tracking-[0.2em] text-[#C15F3C] mb-6 uppercase backdrop-blur-md shadow-md shadow-[#C15F3C]/10"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10B981]" />
-            <span>AVAILABLE FOR CLIENT PROJECTS — {currentQuarter}</span>
-          </motion.div>
-
           {/* Headline - Editorial Serif */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
