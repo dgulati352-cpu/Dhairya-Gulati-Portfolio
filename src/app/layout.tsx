@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#15130F",
+  themeColor: "#FBF9F5",
   width: "device-width",
   initialScale: 1,
 };
@@ -148,7 +148,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#15130F] text-[#F3EFEA] font-sans selection:bg-[#C15F3C]/30 selection:text-[#F3EFEA]">
+      <body className="min-h-full flex flex-col bg-[#FBF9F5] text-[#1A1714] font-sans selection:bg-[#C15F3C]/20 selection:text-[#C15F3C]">
         {children}
       </body>
     </html>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, Eye, ShieldCheck, Cpu, Zap, Sparkles, AlertCircle, Wrench, Lightbulb, Filter } from "lucide-react";
+import { X, ArrowRight, Eye, Sparkles, AlertCircle, Wrench, Lightbulb } from "lucide-react";
 import Image from "next/image";
 
 interface Project {
@@ -120,14 +120,14 @@ export default function Projects() {
 
       <div className="w-full max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card-terracotta border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#E88D6A] mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#E88D6A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Featured Portfolio</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
             Selected Product Case Studies
           </h3>
-          <p className="text-stone-400 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
+          <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Real problems, real architectural trade-offs, and practical lessons from building digital products.
           </p>
         </div>
@@ -143,7 +143,7 @@ export default function Projects() {
                 className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                   isActive
                     ? "bg-[#C15F3C] text-white border-[#C15F3C] shadow-lg shadow-[#C15F3C]/25"
-                    : "glass-card text-stone-400 border-white/8 hover:text-white hover:border-[#C15F3C]/40"
+                    : "bg-white text-stone-600 border-stone-200 hover:text-stone-900 hover:border-[#C15F3C]/40 shadow-sm"
                 }`}
               >
                 {cat}
@@ -167,10 +167,10 @@ export default function Projects() {
                 onClick={() => setSelectedProject(project)}
                 className={`${
                   isHeroCard ? "md:col-span-8" : "md:col-span-4"
-                } glass-card-terracotta rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col justify-between border border-[#C15F3C]/20 shadow-xl`}
+                } bg-white rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col justify-between border border-stone-200/90 shadow-xl shadow-stone-900/5`}
               >
                 {/* Image Frame */}
-                <div className={`relative ${isHeroCard ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-[#1E1B16] border-b border-white/10`}>
+                <div className={`relative ${isHeroCard ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-stone-900 border-b border-stone-200`}>
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -185,7 +185,7 @@ export default function Projects() {
                     </span>
                   )}
 
-                  <div className="absolute inset-0 bg-[#15130F]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="flex items-center gap-2 px-5 py-2.5 rounded-full terracotta-button-gradient font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-[#C15F3C]/30 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                       <span>Read Case Study</span>
                       <Eye className="w-4 h-4 text-white" />
@@ -198,25 +198,25 @@ export default function Projects() {
                   <div>
                     <div className="flex flex-wrap gap-1.5 mb-3">
                       {project.stack.map((tech) => (
-                        <span key={tech} className="text-[10px] font-bold text-[#E88D6A] px-2 py-0.5 rounded-md bg-[#C15F3C]/10 border border-[#C15F3C]/20">
+                        <span key={tech} className="text-[10px] font-bold text-[#C15F3C] px-2 py-0.5 rounded-md bg-[#C15F3C]/10 border border-[#C15F3C]/20">
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <h4 className="font-serif text-xl font-extrabold text-white mb-2 group-hover:text-[#E88D6A] transition-colors">
+                    <h4 className="font-serif text-xl font-extrabold text-stone-900 mb-2 group-hover:text-[#C15F3C] transition-colors">
                       {project.title}
                     </h4>
-                    <p className="text-stone-400 text-xs sm:text-sm leading-relaxed font-medium mb-6">
+                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-medium mb-6">
                       {project.tagline}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span className="text-xs font-bold text-stone-300 group-hover:text-[#E88D6A] transition-colors flex items-center gap-1.5">
+                  <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
+                    <span className="text-xs font-bold text-stone-700 group-hover:text-[#C15F3C] transition-colors flex items-center gap-1.5">
                       <span>View Breakdown</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </span>
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-stone-400 border border-white/10">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 border border-stone-200">
                       Developer Spec
                     </span>
                   </div>
@@ -234,18 +234,18 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-md"
           >
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative w-full max-w-4xl max-h-[88vh] bg-[#1E1B16] border border-[#C15F3C]/30 rounded-3xl overflow-y-auto shadow-2xl flex flex-col"
+              className="relative w-full max-w-4xl max-h-[88vh] bg-[#FBF9F5] border border-stone-300 rounded-3xl overflow-y-auto shadow-2xl flex flex-col text-stone-900"
             >
               
               {/* Header Banner */}
-              <div className="relative h-[220px] sm:h-[280px] w-full bg-[#15130F] border-b border-[#C15F3C]/20">
+              <div className="relative h-[220px] sm:h-[280px] w-full bg-stone-900 border-b border-stone-200">
                 <Image
                   src={selectedProject.image}
                   alt={selectedProject.title}
@@ -253,12 +253,12 @@ export default function Projects() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1E1B16] via-[#1E1B16]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent" />
                 
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 p-2.5 rounded-full bg-black/70 border border-[#C15F3C]/30 text-[#E88D6A] hover:bg-[#C15F3C]/20 hover:scale-105 transition-all cursor-pointer z-10"
+                  className="absolute top-4 right-4 p-2.5 rounded-full bg-white/90 border border-stone-200 text-stone-900 hover:bg-white hover:scale-105 transition-all cursor-pointer z-10 shadow-md"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -267,12 +267,12 @@ export default function Projects() {
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex flex-wrap gap-2 mb-2">
                     {selectedProject.stack.map((tech) => (
-                      <span key={tech} className="text-xs font-bold text-[#E88D6A] bg-[#C15F3C]/20 border border-[#C15F3C]/40 px-3 py-0.5 rounded-full">
+                      <span key={tech} className="text-xs font-bold text-white bg-[#C15F3C] border border-[#C15F3C] px-3 py-0.5 rounded-full shadow-sm">
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-4xl font-extrabold terracotta-text-gradient">
+                  <h3 className="font-serif text-2xl sm:text-4xl font-extrabold text-white">
                     {selectedProject.title}
                   </h3>
                 </div>
@@ -283,50 +283,50 @@ export default function Projects() {
                 
                 {/* Lead Summary */}
                 <div className="p-5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/25">
-                  <p className="text-stone-200 text-sm sm:text-base font-semibold leading-relaxed">
+                  <p className="text-stone-900 text-sm sm:text-base font-semibold leading-relaxed">
                     {selectedProject.overview}
                   </p>
                 </div>
 
                 {/* The Problem */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-[#E88D6A]" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#C15F3C] flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-[#C15F3C]" />
                     <span>The Problem</span>
                   </h4>
-                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-700 text-sm leading-relaxed font-medium">
                     {selectedProject.problem}
                   </p>
                 </div>
 
                 {/* Key Trade-offs */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
-                    <Wrench className="w-4 h-4 text-[#E88D6A]" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#C15F3C] flex items-center gap-2">
+                    <Wrench className="w-4 h-4 text-[#C15F3C]" />
                     <span>Key Trade-offs</span>
                   </h4>
-                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-700 text-sm leading-relaxed font-medium">
                     {selectedProject.tradeoffs}
                   </p>
                 </div>
 
                 {/* What I Learned */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4 text-[#E88D6A]" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#C15F3C] flex items-center gap-2">
+                    <Lightbulb className="w-4 h-4 text-[#C15F3C]" />
                     <span>What I Learned</span>
                   </h4>
-                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-700 text-sm leading-relaxed font-medium">
                     {selectedProject.learned}
                   </p>
                 </div>
 
                 {/* Metrics */}
-                <div className="p-5 rounded-2xl bg-white/3 border border-white/8">
-                  <h4 className="text-xs uppercase tracking-widest font-bold text-stone-400 mb-3">Functional Results</h4>
+                <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-sm">
+                  <h4 className="text-xs uppercase tracking-widest font-bold text-stone-500 mb-3">Functional Results</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {selectedProject.metrics.map((metric, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-[#15130F]/60 border border-white/5 text-xs font-semibold text-[#E88D6A]">
+                      <div key={i} className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs font-bold text-[#C15F3C]">
                         {metric}
                       </div>
                     ))}
@@ -336,10 +336,10 @@ export default function Projects() {
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-6 border-t border-white/10 flex items-center justify-end bg-[#15130F]/60">
+              <div className="p-4 sm:p-6 border-t border-stone-200 flex items-center justify-end bg-stone-100/80">
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-6 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 font-semibold text-xs uppercase tracking-wider text-white transition-colors cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-200 font-bold text-xs uppercase tracking-wider text-stone-800 transition-colors cursor-pointer"
                 >
                   Close Case Study
                 </button>

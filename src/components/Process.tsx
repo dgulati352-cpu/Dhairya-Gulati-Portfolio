@@ -65,14 +65,14 @@ export default function Process() {
 
       <div className="w-full max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card-terracotta border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#E88D6A] mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#E88D6A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Workflow Roadmap</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
             How I Build High-Impact Products
           </h3>
-          <p className="text-stone-400 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
+          <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             A battle-tested 6-step design process engineered for speed, quality, and business results.
           </p>
         </div>
@@ -89,27 +89,27 @@ export default function Process() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="w-[340px] flex-shrink-0 glass-card-terracotta rounded-3xl p-7 glass-card-hover border border-[#C15F3C]/25 relative overflow-hidden group flex flex-col justify-between"
+                  className="w-[340px] flex-shrink-0 bg-white rounded-3xl p-7 glass-card-hover border border-stone-200/90 shadow-md shadow-stone-900/5 relative overflow-hidden group flex flex-col justify-between"
                 >
                   <span className="absolute right-4 top-2 text-7xl font-serif font-extrabold text-[#C15F3C]/10 group-hover:text-[#C15F3C]/20 select-none transition-colors duration-300">
                     {step.num}
                   </span>
 
                   <div>
-                    <div className="p-3 rounded-2xl bg-[#C15F3C]/15 border border-[#C15F3C]/30 text-[#E88D6A] w-fit mb-5 shadow-md">
+                    <div className="p-3 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C] w-fit mb-5 shadow-sm">
                       <Icon className="w-5 h-5" />
                     </div>
 
-                    <h4 className="font-serif text-xl font-bold text-white mb-3 group-hover:text-[#E88D6A] transition-colors">
+                    <h4 className="font-serif text-xl font-bold text-stone-900 mb-3 group-hover:text-[#C15F3C] transition-colors">
                       {step.title}
                     </h4>
 
-                    <p className="text-stone-300 text-xs sm:text-sm leading-relaxed mb-3 font-semibold">
+                    <p className="text-stone-700 text-xs sm:text-sm leading-relaxed mb-3 font-semibold">
                       {step.desc}
                     </p>
                   </div>
 
-                  <p className="text-stone-400 text-xs leading-relaxed font-medium pt-4 border-t border-white/5">
+                  <p className="text-stone-500 text-xs leading-relaxed font-medium pt-4 border-t border-stone-100">
                     {step.details}
                   </p>
                 </motion.div>
@@ -128,26 +128,26 @@ export default function Process() {
             return (
               <div
                 key={step.num}
-                className="glass-card-terracotta rounded-3xl p-6 border border-[#C15F3C]/20 relative overflow-hidden"
+                className="bg-white rounded-3xl p-6 border border-stone-200 shadow-md relative overflow-hidden"
               >
                 <span className="absolute right-4 top-2 text-6xl font-serif font-extrabold text-[#C15F3C]/10 select-none">
                   {step.num}
                 </span>
 
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2.5 rounded-xl bg-[#C15F3C]/15 border border-[#C15F3C]/30 text-[#E88D6A]">
+                  <div className="p-2.5 rounded-xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C]">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-white">
+                  <h4 className="font-serif text-lg font-bold text-stone-900">
                     {step.title}
                   </h4>
                 </div>
 
-                <p className="text-stone-300 text-xs leading-relaxed mb-2 font-semibold">
+                <p className="text-stone-700 text-xs leading-relaxed mb-2 font-semibold">
                   {step.desc}
                 </p>
 
-                <p className="text-stone-400 text-[11px] leading-relaxed font-medium">
+                <p className="text-stone-500 text-[11px] leading-relaxed font-medium">
                   {step.details}
                 </p>
               </div>

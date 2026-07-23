@@ -12,8 +12,6 @@ import {
   Store,
   Sparkles,
   ArrowUpRight,
-  ShieldCheck,
-  Cpu,
   Boxes
 } from "lucide-react";
 
@@ -103,14 +101,14 @@ export default function Services() {
 
       <div className="w-full max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card-terracotta border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#E88D6A] mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#E88D6A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Service Tiers</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
             Specialized Design Capabilities
           </h3>
-          <p className="text-stone-400 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
+          <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Structured design services mapped to launch, scale, and optimize mobile app products.
           </p>
         </div>
@@ -129,17 +127,17 @@ export default function Services() {
                 className="flex flex-col gap-6"
               >
                 {/* Group Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#C15F3C]/20">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-[#C15F3C]/15 text-[#E88D6A] border border-[#C15F3C]/30">
+                    <div className="p-2 rounded-xl bg-[#C15F3C]/10 text-[#C15F3C] border border-[#C15F3C]/20">
                       <GroupIcon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-serif text-xl font-bold text-white">{group.groupTitle}</h4>
-                      <p className="text-xs text-stone-400">{group.groupTagline}</p>
+                      <h4 className="font-serif text-xl font-bold text-stone-900">{group.groupTitle}</h4>
+                      <p className="text-xs text-stone-500">{group.groupTagline}</p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-[#C15F3C]/10 text-[#E88D6A] border border-[#C15F3C]/20">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-[#C15F3C]/10 text-[#C15F3C] border border-[#C15F3C]/20">
                     Tier 0{groupIdx + 1}
                   </span>
                 </div>
@@ -151,31 +149,31 @@ export default function Services() {
                     return (
                       <div
                         key={service.title}
-                        className="glass-card-terracotta rounded-3xl p-6 glass-card-hover group flex flex-col justify-between border border-[#C15F3C]/20 relative overflow-hidden"
+                        className="bg-white rounded-3xl p-6 glass-card-hover group flex flex-col justify-between border border-stone-200/90 shadow-md shadow-stone-900/5 relative overflow-hidden"
                       >
                         <div>
                           <div className="flex items-center justify-between mb-5">
-                            <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-[#C15F3C]/15 border border-[#C15F3C]/30 text-[#E88D6A] group-hover:scale-110 transition-all duration-300 shadow-md">
+                            <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C] group-hover:scale-110 transition-all duration-300 shadow-sm">
                               <Icon className="w-5 h-5" />
                             </div>
-                            <span className="text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#E88D6A]">
+                            <span className="text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700">
                               {service.tag}
                             </span>
                           </div>
 
-                          <h5 className="font-serif text-lg font-bold text-white mb-2 group-hover:text-[#E88D6A] transition-colors duration-200">
+                          <h5 className="font-serif text-lg font-bold text-stone-900 mb-2 group-hover:text-[#C15F3C] transition-colors duration-200">
                             {service.title}
                           </h5>
-                          <p className="text-stone-400 text-xs sm:text-sm leading-relaxed font-medium">
+                          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-medium">
                             {service.desc}
                           </p>
                         </div>
 
-                        <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-                          <span className="text-[10px] uppercase tracking-widest font-bold text-stone-500 group-hover:text-[#E88D6A] transition-colors">
+                        <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+                          <span className="text-[10px] uppercase tracking-widest font-bold text-stone-400 group-hover:text-[#C15F3C] transition-colors">
                             Spec Available
                           </span>
-                          <div className="w-6 h-6 rounded-full bg-white/5 group-hover:bg-[#C15F3C]/20 text-stone-400 group-hover:text-[#E88D6A] flex items-center justify-center transition-all">
+                          <div className="w-6 h-6 rounded-full bg-stone-100 group-hover:bg-[#C15F3C]/10 text-stone-500 group-hover:text-[#C15F3C] flex items-center justify-center transition-all">
                             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </div>
                         </div>

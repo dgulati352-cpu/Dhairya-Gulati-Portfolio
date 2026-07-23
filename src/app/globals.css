@@ -4,23 +4,23 @@
   --color-primary: #C15F3C;
   --color-primary-hover: #D66F4A;
   --color-accent: #E27B56;
-  --color-terracotta-glow: rgba(193, 95, 60, 0.18);
-  --color-dark-bg: #15130F;
-  --color-dark-card: #1E1B16;
-  --color-text-primary: #F3EFEA;
-  --color-text-secondary: #A8A096;
+  --color-terracotta-glow: rgba(193, 95, 60, 0.12);
+  --color-light-bg: #FBF9F5;
+  --color-light-card: #FFFFFF;
+  --color-text-primary: #1A1714;
+  --color-text-secondary: #5A524A;
   --font-serif: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-jakarta), var(--font-inter), sans-serif;
 }
 
 :root {
-  --background: #15130F;
-  --foreground: #F3EFEA;
+  --background: #FBF9F5;
+  --foreground: #1A1714;
 }
 
 body {
-  background-color: #15130F;
-  color: #F3EFEA;
+  background-color: #FBF9F5;
+  color: #1A1714;
   overflow-x: hidden;
 }
 
@@ -35,10 +35,10 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #15130F;
+  background: #FBF9F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2A251E;
+  background: #E5DFC0;
   border-radius: 4px;
   border: 1px solid rgba(193, 95, 60, 0.2);
 }
@@ -46,20 +46,21 @@ body {
   background: #C15F3C;
 }
 
-/* Glassmorphism Terracotta Utilities */
+/* Glassmorphism Light Terracotta Utilities */
 .glass-card {
-  background: rgba(30, 27, 22, 0.65);
-  border: 1px solid rgba(243, 239, 234, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(229, 224, 216, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px -4px rgba(26, 23, 20, 0.05);
 }
 
 .glass-card-terracotta {
-  background: rgba(30, 27, 22, 0.85);
+  background: #FFFFFF;
   border: 1px solid rgba(193, 95, 60, 0.25);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(193, 95, 60, 0.08), 0 4px 20px -2px rgba(26, 23, 20, 0.04);
 }
 
 .glass-card-hover {
@@ -67,21 +68,21 @@ body {
 }
 
 .glass-card-hover:hover {
-  background: rgba(38, 33, 27, 0.95);
-  border-color: rgba(193, 95, 60, 0.45);
-  box-shadow: 0 15px 35px -10px rgba(193, 95, 60, 0.2), 0 0 20px rgba(193, 95, 60, 0.1);
+  background: #FFFFFF;
+  border-color: rgba(193, 95, 60, 0.5);
+  box-shadow: 0 20px 40px -10px rgba(193, 95, 60, 0.18), 0 0 25px rgba(193, 95, 60, 0.08);
   transform: translateY(-3px);
 }
 
-/* Terracotta Editorial Gradients */
+/* Terracotta Light Editorial Gradients */
 .terracotta-text-gradient {
-  background: linear-gradient(135deg, #FFF0EB 0%, #E88D6A 40%, #C15F3C 80%, #964022 100%);
+  background: linear-gradient(135deg, #D66F4A 0%, #C15F3C 50%, #964022 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .editorial-text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F3EFEA 50%, #C5BDB3 100%);
+  background: linear-gradient(135deg, #1A1714 0%, #38322B 50%, #5A524A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -102,8 +103,8 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(193, 95, 60, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(160, 74, 42, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 15% 15%, rgba(193, 95, 60, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(226, 123, 86, 0.06) 0%, transparent 40%),
     radial-gradient(circle at 50% 75%, rgba(214, 111, 74, 0.05) 0%, transparent 50%);
   z-index: 0;
   pointer-events: none;
@@ -112,8 +113,8 @@ body {
 /* Subtle Warm Grid Lines */
 .warm-grid {
   background-image: 
-    linear-gradient(to right, rgba(243, 239, 234, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(243, 239, 234, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(26, 23, 20, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 23, 20, 0.03) 1px, transparent 1px);
   background-size: 3.5rem 3.5rem;
 }
 
