@@ -40,7 +40,7 @@ export default function Hero() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-cyan-400 mb-6 tracking-wide backdrop-blur-md"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>PERSONAL BRAND POSITIONING</span>
+            <span>DHAIRYA GULATI — MOBILE APP & UI/UX DESIGNER</span>
           </motion.div>
 
           {/* Headline */}
@@ -50,9 +50,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6 bg-gradient-to-b from-white via-white to-slate-400 bg-clip-text text-transparent"
           >
-            I Design Apps <br />
+            Dhairya Gulati <br />
             <span className="bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              That Help Businesses Grow
+              Designing Apps That Scale Businesses
             </span>
           </motion.h1>
 
@@ -63,7 +63,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-slate-400 max-w-xl mb-10 leading-relaxed font-medium"
           >
-            Mobile App Designer crafting intuitive digital experiences for restaurants, gyms, hotels, local stores, and service businesses.
+            Official Portfolio of Dhairya Gulati: Mobile App & UI/UX Designer crafting intuitive digital experiences for restaurants, gyms, hotels, local stores, and modern startups.
           </motion.p>
 
           {/* CTAs */}
