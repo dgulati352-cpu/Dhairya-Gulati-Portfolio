@@ -165,7 +165,7 @@ export default function Contact() {
               <span className="text-[10px] uppercase font-bold text-amber-400/90 tracking-[0.2em] block mb-4">SOCIAL CONNECT</span>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/dhairyagulati"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 rounded-xl bg-white/4 border border-white/8 text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 hover:border-amber-500/30 transition-all"
@@ -174,7 +174,7 @@ export default function Contact() {
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/dgulati352-cpu"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 rounded-xl bg-white/4 border border-white/8 text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 hover:border-amber-500/30 transition-all"
@@ -183,7 +183,7 @@ export default function Contact() {
                   <Github className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://dribbble.com"
+                  href="https://dribbble.com/dhairyagulati"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-xl bg-white/4 border border-white/8 text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 hover:border-amber-500/30 transition-all font-bold text-xs"
@@ -192,7 +192,7 @@ export default function Contact() {
                   Dr
                 </a>
                 <a
-                  href="https://behance.net"
+                  href="https://behance.net/dhairyagulati"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-xl bg-white/4 border border-white/8 text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 hover:border-amber-500/30 transition-all font-bold text-xs"

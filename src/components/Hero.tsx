@@ -14,6 +14,8 @@ export default function Hero() {
     }
   };
 
+  const currentQuarter = `Q${Math.floor(new Date().getMonth() / 3) + 1} ${new Date().getFullYear()}`;
+
   return (
     <section
       id="home"
@@ -40,7 +42,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card-gold border border-amber-500/30 text-[11px] font-extrabold tracking-[0.2em] text-amber-300 mb-6 uppercase backdrop-blur-md shadow-lg shadow-amber-500/10"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10B981]" />
-            <span>AVAILABLE FOR CLIENT PROJECTS — Q3 2026</span>
+            <span>AVAILABLE FOR CLIENT PROJECTS — {currentQuarter}</span>
           </motion.div>
 
           {/* Headline */}

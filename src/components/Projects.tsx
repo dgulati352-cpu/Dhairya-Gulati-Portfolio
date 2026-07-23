@@ -70,6 +70,23 @@ const PROJECTS: Project[] = [
       "1.2s load time on 3G mobile networks",
       "3x higher buyer retention on artisan story pages"
     ]
+  },
+  {
+    id: "restaurant",
+    title: "Spice Bistro Restaurant System",
+    category: "Mobile App & Table Ordering",
+    stack: ["Figma", "React Native", "Tailwind CSS", "Node.js"],
+    image: "/hotel.png",
+    tagline: "Digital table ordering, reservations, and interactive digital menus.",
+    overview: "I designed a digital table ordering and reservation platform for high-footfall dining restaurants. Guests scan QR codes at tables to browse visual menus, customize dishes, and place orders directly to the kitchen.",
+    problem: "During peak dinner hours, waiters were overwhelmed taking orders, leading to 25-minute delays, incorrect dietary customizations, and table turnover bottlenecks.",
+    tradeoffs: "I initially built a complex multi-step customization modal for every dish. In busy dining environments, customers found it confusing and reverted to calling waiters. I redesigned the menu interface into flat 1-tap add-on chips and sticky order summaries, reducing ordering steps from 5 to 2.",
+    learned: "Dining apps must prioritize quick ordering speed over deep menu customization. Simplifying the ordering flow increased table booking conversions by 30% in two weeks while reducing kitchen ticket errors.",
+    metrics: [
+      "30% increase in table-booking conversions",
+      "2-tap order checkout flow",
+      "Zero kitchen ticket customization errors"
+    ]
   }
 ];
 
@@ -96,7 +113,7 @@ export default function Projects() {
         </div>
 
         {/* Projects Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {PROJECTS.map((project, idx) => (
             <motion.div
               key={project.id}
