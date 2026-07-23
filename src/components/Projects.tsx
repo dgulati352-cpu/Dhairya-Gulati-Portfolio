@@ -2,13 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, Eye, ShieldCheck, Cpu, Zap, Sparkles, AlertCircle, Wrench, Lightbulb } from "lucide-react";
+import { X, ArrowRight, Eye, ShieldCheck, Cpu, Zap, Sparkles, AlertCircle, Wrench, Lightbulb, Filter } from "lucide-react";
 import Image from "next/image";
 
 interface Project {
   id: string;
   title: string;
   category: string;
+  filterCategory: "Hospitality" | "IoT & Hardware" | "Retail & Commerce";
   stack: string[];
   image: string;
   tagline: string;
@@ -17,6 +18,7 @@ interface Project {
   tradeoffs: string;
   learned: string;
   metrics: string[];
+  isFeatured?: boolean;
 }
 
 const PROJECTS: Project[] = [
@@ -24,6 +26,7 @@ const PROJECTS: Project[] = [
     id: "hotel",
     title: "Boutique Hotel Operations Manager",
     category: "Mobile App & Dashboard",
+    filterCategory: "Hospitality",
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Figma"],
     image: "/hotel.png",
     tagline: "Real-time room management and check-in interface for 15-to-40 room hotels.",
@@ -35,12 +38,14 @@ const PROJECTS: Project[] = [
       "Sub-90s check-in processing per guest",
       "Zero state desync on spotty Wi-Fi",
       "Kept JS bundle footprint light for budget tablets"
-    ]
+    ],
+    isFeatured: true
   },
   {
     id: "powerbank",
     title: "Power Bank IoT Rental App",
     category: "Mobile App & IoT Interface",
+    filterCategory: "IoT & Hardware",
     stack: ["React Native", "Tailwind CSS", "Figma", "Node.js"],
     image: "/powerbank.png",
     tagline: "Scan-to-unlock mobile interface for hardware-connected charging kiosks.",
@@ -58,6 +63,7 @@ const PROJECTS: Project[] = [
     id: "handloom",
     title: "Artisan Handloom Storefront",
     category: "E-commerce Mobile UI",
+    filterCategory: "Retail & Commerce",
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Framer"],
     image: "/handloom.png",
     tagline: "Mobile-first store connecting rural weaving clusters with retail buyers.",
@@ -75,6 +81,7 @@ const PROJECTS: Project[] = [
     id: "restaurant",
     title: "Spice Bistro Restaurant System",
     category: "Mobile App & Table Ordering",
+    filterCategory: "Hospitality",
     stack: ["Figma", "React Native", "Tailwind CSS", "Node.js"],
     image: "/hotel.png",
     tagline: "Digital table ordering, reservations, and interactive digital menus.",
@@ -90,87 +97,133 @@ const PROJECTS: Project[] = [
   }
 ];
 
+const FILTER_CATEGORIES = [
+  "All Work",
+  "Hospitality",
+  "IoT & Hardware",
+  "Retail & Commerce"
+] as const;
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeFilter, setActiveFilter] = useState<typeof FILTER_CATEGORIES[number]>("All Work");
+
+  const filteredProjects = PROJECTS.filter((proj) => {
+    if (activeFilter === "All Work") return true;
+    return proj.filterCategory === activeFilter;
+  });
 
   return (
     <section id="projects" className="relative py-24 md:py-32 px-6">
       {/* Background radial glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C15F3C]/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="w-full max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card-gold border border-amber-500/20 text-xs uppercase font-bold tracking-[0.25em] text-amber-300 mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card-terracotta border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#E88D6A] mb-3 shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#E88D6A]" />
             <span>Featured Portfolio</span>
           </div>
-          <h3 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-white tracking-tight">
             Selected Product Case Studies
           </h3>
-          <p className="text-slate-400 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
+          <p className="text-stone-400 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Real problems, real architectural trade-offs, and practical lessons from building digital products.
           </p>
         </div>
 
-        {/* Projects Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {PROJECTS.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              onClick={() => setSelectedProject(project)}
-              className="glass-card-gold rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col h-full border border-amber-500/20 shadow-xl"
-            >
-              {/* Image Frame */}
-              <div className="relative aspect-[4/3.2] w-full overflow-hidden bg-slate-950 border-b border-white/10">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-full gold-button-gradient font-bold text-xs uppercase tracking-wider text-black shadow-lg shadow-amber-500/30 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                    <span>Read Case Study</span>
-                    <Eye className="w-4 h-4 text-black" />
+        {/* Category Filter Bar */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
+          {FILTER_CATEGORIES.map((cat) => {
+            const isActive = activeFilter === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                  isActive
+                    ? "bg-[#C15F3C] text-white border-[#C15F3C] shadow-lg shadow-[#C15F3C]/25"
+                    : "glass-card text-stone-400 border-white/8 hover:text-white hover:border-[#C15F3C]/40"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Asymmetric Featured Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {filteredProjects.map((project, idx) => {
+            const isHeroCard = activeFilter === "All Work" && project.isFeatured;
+
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                onClick={() => setSelectedProject(project)}
+                className={`${
+                  isHeroCard ? "md:col-span-8" : "md:col-span-4"
+                } glass-card-terracotta rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col justify-between border border-[#C15F3C]/20 shadow-xl`}
+              >
+                {/* Image Frame */}
+                <div className={`relative ${isHeroCard ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-[#1E1B16] border-b border-white/10`}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes={isHeroCard ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+                  />
+                  
+                  {isHeroCard && (
+                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#C15F3C] text-white font-extrabold text-[10px] uppercase tracking-widest shadow-md">
+                      FEATURED CASE STUDY
+                    </span>
+                  )}
+
+                  <div className="absolute inset-0 bg-[#15130F]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full terracotta-button-gradient font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-[#C15F3C]/30 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                      <span>Read Case Study</span>
+                      <Eye className="w-4 h-4 text-white" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Card Body */}
-              <div className="p-6 flex flex-col flex-grow justify-between">
-                <div>
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {project.stack.map((tech) => (
-                      <span key={tech} className="text-[10px] font-bold text-amber-300 px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20">
-                        {tech}
-                      </span>
-                    ))}
+                {/* Card Body */}
+                <div className="p-6 flex flex-col flex-grow justify-between">
+                  <div>
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {project.stack.map((tech) => (
+                        <span key={tech} className="text-[10px] font-bold text-[#E88D6A] px-2 py-0.5 rounded-md bg-[#C15F3C]/10 border border-[#C15F3C]/20">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <h4 className="font-serif text-xl font-extrabold text-white mb-2 group-hover:text-[#E88D6A] transition-colors">
+                      {project.title}
+                    </h4>
+                    <p className="text-stone-400 text-xs sm:text-sm leading-relaxed font-medium mb-6">
+                      {project.tagline}
+                    </p>
                   </div>
-                  <h4 className="text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">
-                    {project.title}
-                  </h4>
-                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-medium mb-6">
-                    {project.tagline}
-                  </p>
-                </div>
 
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-300 group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                    <span>View Breakdown</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10">
-                    Developer Spec
-                  </span>
+                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                    <span className="text-xs font-bold text-stone-300 group-hover:text-[#E88D6A] transition-colors flex items-center gap-1.5">
+                      <span>View Breakdown</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-stone-400 border border-white/10">
+                      Developer Spec
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
@@ -188,11 +241,11 @@ export default function Projects() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative w-full max-w-4xl max-h-[88vh] bg-[#0A0C13] border border-amber-500/30 rounded-3xl overflow-y-auto shadow-2xl flex flex-col"
+              className="relative w-full max-w-4xl max-h-[88vh] bg-[#1E1B16] border border-[#C15F3C]/30 rounded-3xl overflow-y-auto shadow-2xl flex flex-col"
             >
               
               {/* Header Banner */}
-              <div className="relative h-[220px] sm:h-[280px] w-full bg-slate-950 border-b border-amber-500/20">
+              <div className="relative h-[220px] sm:h-[280px] w-full bg-[#15130F] border-b border-[#C15F3C]/20">
                 <Image
                   src={selectedProject.image}
                   alt={selectedProject.title}
@@ -200,12 +253,12 @@ export default function Projects() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C13] via-[#0A0C13]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1E1B16] via-[#1E1B16]/60 to-transparent" />
                 
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 p-2.5 rounded-full bg-black/70 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 hover:scale-105 transition-all cursor-pointer z-10"
+                  className="absolute top-4 right-4 p-2.5 rounded-full bg-black/70 border border-[#C15F3C]/30 text-[#E88D6A] hover:bg-[#C15F3C]/20 hover:scale-105 transition-all cursor-pointer z-10"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -214,66 +267,66 @@ export default function Projects() {
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex flex-wrap gap-2 mb-2">
                     {selectedProject.stack.map((tech) => (
-                      <span key={tech} className="text-xs font-bold text-amber-300 bg-amber-500/20 border border-amber-500/40 px-3 py-0.5 rounded-full">
+                      <span key={tech} className="text-xs font-bold text-[#E88D6A] bg-[#C15F3C]/20 border border-[#C15F3C]/40 px-3 py-0.5 rounded-full">
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-2xl sm:text-4xl font-extrabold gold-text-gradient">
+                  <h3 className="font-serif text-2xl sm:text-4xl font-extrabold terracotta-text-gradient">
                     {selectedProject.title}
                   </h3>
                 </div>
               </div>
 
-              {/* Case Study Details following strict pragmatic format */}
+              {/* Case Study Details */}
               <div className="p-6 sm:p-8 flex flex-col gap-8">
                 
                 {/* Lead Summary */}
-                <div className="p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20">
-                  <p className="text-slate-200 text-sm sm:text-base font-semibold leading-relaxed">
+                <div className="p-5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/25">
+                  <p className="text-stone-200 text-sm sm:text-base font-semibold leading-relaxed">
                     {selectedProject.overview}
                   </p>
                 </div>
 
                 {/* The Problem */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-amber-400 flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-[#E88D6A]" />
                     <span>The Problem</span>
                   </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
                     {selectedProject.problem}
                   </p>
                 </div>
 
                 {/* Key Trade-offs */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-amber-400 flex items-center gap-2">
-                    <Wrench className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
+                    <Wrench className="w-4 h-4 text-[#E88D6A]" />
                     <span>Key Trade-offs</span>
                   </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
                     {selectedProject.tradeoffs}
                   </p>
                 </div>
 
                 {/* What I Learned */}
                 <div className="flex flex-col gap-3">
-                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-amber-400 flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-sm uppercase tracking-widest font-extrabold text-[#E88D6A] flex items-center gap-2">
+                    <Lightbulb className="w-4 h-4 text-[#E88D6A]" />
                     <span>What I Learned</span>
                   </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed font-medium">
+                  <p className="text-stone-300 text-sm leading-relaxed font-medium">
                     {selectedProject.learned}
                   </p>
                 </div>
 
                 {/* Metrics */}
                 <div className="p-5 rounded-2xl bg-white/3 border border-white/8">
-                  <h4 className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-3">Functional Results</h4>
+                  <h4 className="text-xs uppercase tracking-widest font-bold text-stone-400 mb-3">Functional Results</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {selectedProject.metrics.map((metric, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-xs font-semibold text-amber-300">
+                      <div key={i} className="p-3 rounded-xl bg-[#15130F]/60 border border-white/5 text-xs font-semibold text-[#E88D6A]">
                         {metric}
                       </div>
                     ))}
@@ -283,7 +336,7 @@ export default function Projects() {
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-6 border-t border-white/10 flex items-center justify-end bg-slate-950/60">
+              <div className="p-4 sm:p-6 border-t border-white/10 flex items-center justify-end bg-[#15130F]/60">
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="px-6 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 font-semibold text-xs uppercase tracking-wider text-white transition-colors cursor-pointer"

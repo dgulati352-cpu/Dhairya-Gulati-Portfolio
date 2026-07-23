@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, Fraunces } from "next/font/google";
 import "./globals.css";
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
+});
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -15,7 +21,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#07080C",
+  themeColor: "#15130F",
   width: "device-width",
   initialScale: 1,
 };
@@ -27,23 +33,16 @@ export const metadata: Metadata = {
     template: "%s | Dhairya Gulati",
   },
   description:
-    "Official Portfolio of Dhairya Gulati — Mobile App & UI/UX Designer based in Saharanpur, UP, India. Specializing in high-converting mobile applications, Figma UI/UX designs, Framer websites, and digital brand experiences for startups and local businesses.",
+    "Official Portfolio of Dhairya Gulati — Mobile App & UI/UX Designer based in Saharanpur, UP, India. Specializing in high-converting mobile applications, Figma UI/UX designs, and digital brand experiences for startups and local businesses.",
   keywords: [
     "Dhairya Gulati",
     "Dhairya Gulati Portfolio",
     "Dhairya Gulati Designer",
-    "Dhairya Gulati UI UX",
-    "Dhairya Gulati Saharanpur",
     "Mobile App Designer India",
     "UI/UX Designer Saharanpur",
-    "Freelance UI UX Designer Uttar Pradesh",
     "Product Designer Portfolio",
     "Figma UI UX Expert India",
     "App UI UX Design Studio",
-    "Framer Website Designer",
-    "iOS Android App Designer",
-    "Digital Experience Designer",
-    "Local Business App Designer",
   ],
   authors: [{ name: "Dhairya Gulati", url: "https://dhairyagulati.co.in" }],
   creator: "Dhairya Gulati",
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dhairya Gulati — Mobile App & UI/UX Designer Portfolio",
     description:
-      "Crafting premium mobile app designs, UI/UX interfaces, and digital growth experiences. Explore featured projects, design process, and client work.",
+      "Crafting premium mobile app designs and UI/UX interfaces that scale local businesses and modern brands.",
     url: "https://dhairyagulati.co.in",
     siteName: "Dhairya Gulati Portfolio",
     locale: "en_US",
@@ -84,15 +83,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
   category: "design",
 };
@@ -119,16 +109,14 @@ const personJsonLd = {
     "Figma",
     "User Research",
     "Product Design",
-    "Framer",
     "Prototyping",
-    "Web Design",
     "Design Systems",
   ],
   sameAs: [
-    "https://linkedin.com",
-    "https://github.com",
-    "https://dribbble.com",
-    "https://behance.net",
+    "https://linkedin.com/in/dhairyagulati",
+    "https://github.com/dgulati352-cpu",
+    "https://dribbble.com/dhairyagulati",
+    "https://behance.net/dhairyagulati",
   ],
 };
 
@@ -149,7 +137,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${fraunces.variable} ${jakarta.variable} ${inter.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"
@@ -160,11 +148,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#07080C] text-white font-sans selection:bg-[#D4AF37]/30 selection:text-amber-200">
+      <body className="min-h-full flex flex-col bg-[#15130F] text-[#F3EFEA] font-sans selection:bg-[#C15F3C]/30 selection:text-[#F3EFEA]">
         {children}
       </body>
     </html>
   );
 }
-
-
