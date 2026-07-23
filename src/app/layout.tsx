@@ -1,15 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const viewport: Viewport = {
-  themeColor: "#050816",
+  themeColor: "#07080C",
   width: "device-width",
   initialScale: 1,
 };
@@ -143,7 +149,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${inter.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"
@@ -154,7 +160,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#050816] text-white font-sans selection:bg-[#3B82F6]/30 selection:text-white">
+      <body className="min-h-full flex flex-col bg-[#07080C] text-white font-sans selection:bg-[#D4AF37]/30 selection:text-amber-200">
         {children}
       </body>
     </html>
