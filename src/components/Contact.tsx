@@ -56,6 +56,13 @@ export default function Contact() {
 
     setStatus("submitting");
 
+    // Construct WhatsApp message
+    const text = `Hi Dhairya!\n\nI reached out via your portfolio:\n- *Name:* ${formData.name}\n- *Email:* ${formData.email}\n- *Business:* ${formData.business || 'N/A'}\n- *Project Type:* ${formData.projectType}\n- *Message:* ${formData.message}`;
+    const whatsappUrl = `https://wa.me/918791416116?text=${encodeURIComponent(text)}`;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, "_blank");
+
     // Simulate submission delay
     setTimeout(() => {
       setStatus("success");
@@ -124,15 +131,17 @@ export default function Contact() {
                 </a>
 
                 <a 
-                  href="tel:+918791416116" 
+                  href="https://wa.me/918791416116?text=Hi%20Dhairya,%20I'd%20like%20to%20connect%20with%20you!" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-4 group text-slate-300 hover:text-white transition-colors"
                 >
-                  <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-105 transition-transform">
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-105 transition-transform">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-xs text-slate-500 font-bold uppercase">Call / WhatsApp</span>
-                    <span className="text-sm font-semibold">+91 8791416116</span>
+                    <span className="text-sm font-semibold text-emerald-400 font-mono">+91 8791416116</span>
                   </div>
                 </a>
 
@@ -211,12 +220,23 @@ export default function Contact() {
                   <p className="text-slate-400 max-w-sm text-sm leading-relaxed mb-8">
                     Thank you for reaching out. Dhairya will review your details and get back to you within 24 hours.
                   </p>
-                  <button
-                    onClick={() => setStatus("idle")}
-                    className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
-                  >
-                    Send Another Message
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <a
+                      href="https://wa.me/918791416116"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors flex items-center gap-2"
+                    >
+                      <Phone className="w-4 h-4" />
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                    <button
+                      onClick={() => setStatus("idle")}
+                      className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
                 <motion.form
