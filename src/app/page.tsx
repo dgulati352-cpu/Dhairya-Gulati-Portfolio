@@ -9,15 +9,16 @@ import Skills from "@/components/Skills";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#050816] text-white overflow-hidden flex flex-col">
-      {/* Universal radial mesh background glow */}
+    <div className="relative min-h-screen bg-[#07080C] text-white overflow-hidden flex flex-col">
+      {/* Universal luxury mesh background glow */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-600/[0.03] blur-[150px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-purple-600/[0.03] blur-[180px]" />
-        <div className="absolute top-[40%] right-[-20%] w-[40vw] h-[40vw] rounded-full bg-cyan-600/[0.02] blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-amber-500/[0.04] blur-[160px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-yellow-600/[0.03] blur-[180px]" />
+        <div className="absolute top-[45%] right-[-15%] w-[45vw] h-[45vw] rounded-full bg-amber-400/[0.02] blur-[140px]" />
       </div>
 
       {/* Floating Navigation Header */}
@@ -34,6 +35,9 @@ export default function Home() {
         <Testimonials />
         <Contact />
       </main>
+
+      {/* Global Sticky WhatsApp Widget */}
+      <WhatsAppWidget />
 
       {/* Footer */}
       <Footer />
