@@ -59,12 +59,13 @@ const STEPS: Step[] = [
 
 export default function Process() {
   return (
-    <section id="process" className="relative py-10 md:py-16 px-6">
-      {/* Background gradients */}
-      <div className="absolute top-1/4 right-0 w-[350px] h-[350px] bg-[#C15F3C]/5 rounded-full blur-[140px] pointer-events-none" />
+    <section id="process" className="relative py-10 md:py-16 px-6 overflow-hidden">
+      {/* Background radial highlights */}
+      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#C15F3C]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-[400px] h-[400px] bg-[#E27B56]/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="w-full max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+      <div className="w-full max-w-6xl mx-auto relative">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
             <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Workflow Roadmap</span>
@@ -77,84 +78,56 @@ export default function Process() {
           </p>
         </div>
 
-        {/* Desktop View: Horizontal Scroll-Snap Track */}
-        <div className="hidden md:block">
-          <div className="overflow-x-auto horizontal-scroll-snap flex gap-6 pb-8 pt-2 scrollbar-thin">
-            {STEPS.map((step, idx) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={step.num}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="w-[340px] flex-shrink-0 bg-white rounded-3xl p-7 glass-card-hover border border-stone-200/90 shadow-md shadow-stone-900/5 relative overflow-hidden group flex flex-col justify-between"
-                >
-                  <span className="absolute right-4 top-2 text-7xl font-serif font-extrabold text-[#C15F3C]/10 group-hover:text-[#C15F3C]/20 select-none transition-colors duration-300">
-                    {step.num}
+        {/* Responsive Horizontal Step Card Grid (Clean 2-column layout, no scrollbar overflow) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {STEPS.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                className="bg-white dark:bg-stone-900 rounded-3xl p-6 sm:p-7 border border-stone-200/90 dark:border-stone-800 shadow-xl shadow-stone-900/5 hover:border-[#C15F3C]/40 transition-all duration-300 relative overflow-hidden group flex flex-col sm:flex-row gap-5 items-start cursor-pointer"
+              >
+                {/* Large Background Step Number */}
+                <span className="absolute right-4 top-2 text-6xl sm:text-7xl font-serif font-extrabold text-[#C15F3C]/10 group-hover:text-[#C15F3C]/25 select-none transition-colors duration-300 pointer-events-none">
+                  {step.num}
+                </span>
+
+                {/* Left Side: Icon & Number Badge */}
+                <div className="flex sm:flex-col items-center sm:items-start justify-between w-full sm:w-auto shrink-0 border-b sm:border-b-0 sm:border-r border-stone-100 dark:border-stone-800 pb-3 sm:pb-0 sm:pr-5">
+                  <div className="p-3.5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C] shadow-xs group-hover:bg-[#C15F3C] group-hover:text-white transition-all duration-300">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#C15F3C] mt-0 sm:mt-4">
+                    Step {step.num}
                   </span>
+                </div>
 
+                {/* Right Side: Title, Description & Details */}
+                <div className="flex-1 flex flex-col justify-between h-full relative z-10">
                   <div>
-                    <div className="p-3 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C] w-fit mb-5 shadow-sm">
-                      <Icon className="w-5 h-5" />
-                    </div>
-
-                    <h4 className="font-serif text-xl font-bold text-stone-900 mb-3 group-hover:text-[#C15F3C] transition-colors">
+                    <h4 className="font-serif text-xl font-extrabold text-stone-900 dark:text-white mb-2 group-hover:text-[#C15F3C] transition-colors">
                       {step.title}
                     </h4>
-
-                    <p className="text-stone-700 text-xs sm:text-sm leading-relaxed mb-3 font-semibold">
+                    <p className="text-stone-700 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-3 font-semibold">
                       {step.desc}
                     </p>
                   </div>
 
-                  <p className="text-stone-500 text-xs leading-relaxed font-medium pt-4 border-t border-stone-100">
-                    {step.details}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-          <div className="text-center mt-3 text-[11px] uppercase font-bold text-stone-500 tracking-widest">
-            ← Scroll Horizontally to Explore Workflow →
-          </div>
-        </div>
-
-        {/* Mobile View: Vertical Timeline Stack */}
-        <div className="flex flex-col gap-6 md:hidden">
-          {STEPS.map((step) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.num}
-                className="bg-white rounded-3xl p-6 border border-stone-200 shadow-md relative overflow-hidden"
-              >
-                <span className="absolute right-4 top-2 text-6xl font-serif font-extrabold text-[#C15F3C]/10 select-none">
-                  {step.num}
-                </span>
-
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2.5 rounded-xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C]">
-                    <Icon className="w-5 h-5" />
+                  <div className="pt-3 border-t border-stone-100 dark:border-stone-800">
+                    <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed font-medium">
+                      {step.details}
+                    </p>
                   </div>
-                  <h4 className="font-serif text-lg font-bold text-stone-900">
-                    {step.title}
-                  </h4>
                 </div>
-
-                <p className="text-stone-700 text-xs leading-relaxed mb-2 font-semibold">
-                  {step.desc}
-                </p>
-
-                <p className="text-stone-500 text-[11px] leading-relaxed font-medium">
-                  {step.details}
-                </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
