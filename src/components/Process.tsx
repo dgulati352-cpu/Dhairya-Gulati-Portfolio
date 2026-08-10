@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Search, Compass, Columns, Palette, Layers, Rocket, Sparkles } from "lucide-react";
 
 interface Step {
   num: string;
+  stepLabel: string;
   title: string;
   icon: React.ComponentType<{ className?: string }>;
   desc: string;
@@ -15,6 +16,7 @@ interface Step {
 const STEPS: Step[] = [
   {
     num: "01",
+    stepLabel: "STEP 01",
     title: "Discovery & Research",
     icon: Search,
     desc: "Deconstructing target business models, evaluating local competition, and mapping user pain points.",
@@ -22,6 +24,7 @@ const STEPS: Step[] = [
   },
   {
     num: "02",
+    stepLabel: "STEP 02",
     title: "Product Strategy & Flows",
     icon: Compass,
     desc: "Defining clear core features, app navigation architecture, and conversion-focused user journeys.",
@@ -29,6 +32,7 @@ const STEPS: Step[] = [
   },
   {
     num: "03",
+    stepLabel: "STEP 03",
     title: "UX Wireframing",
     icon: Columns,
     desc: "Building low-fidelity screen blueprints to validate information layout and screen transitions.",
@@ -36,6 +40,7 @@ const STEPS: Step[] = [
   },
   {
     num: "04",
+    stepLabel: "STEP 04",
     title: "High-Fidelity UI Design",
     icon: Palette,
     desc: "Crafting dark-mode interface mockups with luxury visual aesthetics, typography, and contrast.",
@@ -43,6 +48,7 @@ const STEPS: Step[] = [
   },
   {
     num: "05",
+    stepLabel: "STEP 05",
     title: "Interactive Prototyping",
     icon: Layers,
     desc: "Linking mockups in Figma into fluid, interactive prototypes for stakeholder testing.",
@@ -50,6 +56,7 @@ const STEPS: Step[] = [
   },
   {
     num: "06",
+    stepLabel: "STEP 06",
     title: "Developer Handoff & Launch",
     icon: Rocket,
     desc: "Structuring clean Figma component libraries, exporting code assets, and guiding engineering teams.",
@@ -57,77 +64,174 @@ const STEPS: Step[] = [
   }
 ];
 
-export default function Process() {
-  return (
-    <section id="process" className="relative py-10 md:py-16 px-6 overflow-hidden">
-      {/* Background radial highlights */}
-      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#C15F3C]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 left-0 w-[400px] h-[400px] bg-[#E27B56]/5 rounded-full blur-[140px] pointer-events-none" />
+// Typewriter Card Component with Intersection Observer
+function StepCard({ step }: { step: Step }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [displayedTitle, setDisplayedTitle] = useState("");
+  const [displayedDesc, setDisplayedDesc] = useState("");
+  const [isTitleDone, setIsTitleDone] = useState(false);
+  const [isDescDone, setIsDescDone] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
 
-      <div className="w-full max-w-6xl mx-auto relative">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
-            <span>Workflow Roadmap</span>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setIsVisible(true);
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  // Title Typewriter Effect
+  useEffect(() => {
+    if (!isVisible) return;
+    if (displayedTitle.length < step.title.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedTitle(step.title.slice(0, displayedTitle.length + 1));
+      }, 40);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTitleDone(true);
+    }
+  }, [isVisible, displayedTitle, step.title]);
+
+  // Description Typewriter Effect (Starts right after title completes)
+  useEffect(() => {
+    if (!isTitleDone) return;
+    if (displayedDesc.length < step.desc.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedDesc(step.desc.slice(0, displayedDesc.length + 1));
+      }, 18);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsDescDone(true);
+    }
+  }, [isTitleDone, displayedDesc, step.desc]);
+
+  const Icon = step.icon;
+
+  return (
+    <div
+      ref={cardRef}
+      className="w-[330px] sm:w-[390px] md:w-[430px] h-[360px] sm:h-[380px] shrink-0 bg-[#1a1614] rounded-3xl p-6 sm:p-7 border border-[#2c2420] shadow-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-[#c85a32]/60 hover:shadow-[#c85a32]/10 cursor-pointer"
+    >
+      {/* Faded Background Index Number */}
+      <span className="absolute -right-2 -top-4 text-[95px] sm:text-[115px] font-serif font-extrabold text-[#c85a32]/12 select-none pointer-events-none group-hover:text-[#c85a32]/22 transition-colors duration-300">
+        {step.num}
+      </span>
+
+      {/* Top Header: Icon & Step Label */}
+      <div className="flex items-center gap-4 relative z-10">
+        <div className="p-3 rounded-2xl bg-[#c85a32]/15 border border-[#c85a32]/30 text-[#c85a32] shadow-xs group-hover:bg-[#c85a32] group-hover:text-white transition-colors duration-300">
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+        </div>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#c85a32]">
+          {step.stepLabel}
+        </span>
+      </div>
+
+      {/* Center: Typewriter Title & Description */}
+      <div className="relative z-10 my-auto">
+        <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-white mb-3 leading-snug min-h-[2.5rem]">
+          {displayedTitle}
+          {isVisible && !isTitleDone && (
+            <span className="inline-block animate-pulse text-[#c85a32] ml-0.5 font-sans font-normal">|</span>
+          )}
+        </h3>
+
+        <p className="text-stone-300 text-xs sm:text-sm leading-relaxed font-medium min-h-[3.5rem]">
+          {displayedDesc}
+          {isTitleDone && !isDescDone && (
+            <span className="inline-block animate-pulse text-[#c85a32] ml-0.5 font-sans font-normal">|</span>
+          )}
+          {isDescDone && (
+            <span className="inline-block opacity-0 animate-pulse text-[#c85a32] ml-0.5 font-sans font-normal">|</span>
+          )}
+        </p>
+      </div>
+
+      {/* Bottom Details Footer */}
+      <div className="pt-4 border-t border-[#2c2420] relative z-10">
+        <p className="text-stone-400 text-xs leading-relaxed font-medium flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#c85a32] shrink-0" />
+          {step.details}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function Process() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Smooth scroll translation from 0% to -72% across 6 cards
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-72%"]);
+
+  return (
+    <section
+      id="process"
+      ref={containerRef}
+      className="relative bg-[#12100e] text-white py-12 md:py-0 min-h-[280vh] w-full overflow-hidden"
+    >
+      {/* Sticky Full-Height Viewport Track */}
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-6 sm:px-12 md:px-16">
+        
+        {/* Ambient Glow Effects */}
+        <div className="absolute top-1/4 left-10 w-[450px] h-[450px] bg-[#c85a32]/10 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#c85a32]/8 rounded-full blur-[160px] pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="w-full max-w-7xl mx-auto mb-6 md:mb-10 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1a1614] border border-[#c85a32]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#c85a32] mb-3 shadow-lg">
+            <Sparkles className="w-3.5 h-3.5 text-[#c85a32]" />
+            <span>Interactive Workflow Roadmap</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Structured Product & UI/UX Design Process
           </h2>
-          <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
-            A battle-tested 6-step design process engineered for speed, quality, and business results.
+          <p className="text-stone-400 max-w-xl mt-3 text-xs sm:text-sm font-medium">
+            Scroll down to watch the step-by-step feature cards move horizontally into view with real-time typewriter reveals.
           </p>
         </div>
 
-        {/* Responsive Horizontal Step Card Grid (Clean 2-column layout, no scrollbar overflow) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {STEPS.map((step, idx) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                whileHover={{ y: -4, scale: 1.01 }}
-                className="bg-white dark:bg-stone-900 rounded-3xl p-6 sm:p-7 border border-stone-200/90 dark:border-stone-800 shadow-xl shadow-stone-900/5 hover:border-[#C15F3C]/40 transition-all duration-300 relative overflow-hidden group flex flex-col sm:flex-row gap-5 items-start cursor-pointer"
-              >
-                {/* Large Background Step Number */}
-                <span className="absolute right-4 top-2 text-6xl sm:text-7xl font-serif font-extrabold text-[#C15F3C]/10 group-hover:text-[#C15F3C]/25 select-none transition-colors duration-300 pointer-events-none">
-                  {step.num}
-                </span>
-
-                {/* Left Side: Icon & Number Badge */}
-                <div className="flex sm:flex-col items-center sm:items-start justify-between w-full sm:w-auto shrink-0 border-b sm:border-b-0 sm:border-r border-stone-100 dark:border-stone-800 pb-3 sm:pb-0 sm:pr-5">
-                  <div className="p-3.5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/20 text-[#C15F3C] shadow-xs group-hover:bg-[#C15F3C] group-hover:text-white transition-all duration-300">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#C15F3C] mt-0 sm:mt-4">
-                    Step {step.num}
-                  </span>
-                </div>
-
-                {/* Right Side: Title, Description & Details */}
-                <div className="flex-1 flex flex-col justify-between h-full relative z-10">
-                  <div>
-                    <h4 className="font-serif text-xl font-extrabold text-stone-900 dark:text-white mb-2 group-hover:text-[#C15F3C] transition-colors">
-                      {step.title}
-                    </h4>
-                    <p className="text-stone-700 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-3 font-semibold">
-                      {step.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-stone-100 dark:border-stone-800">
-                    <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed font-medium">
-                      {step.details}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+        {/* Horizontal Motion Container */}
+        <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-3xl py-4">
+          <motion.div
+            style={{ x }}
+            className="flex gap-6 sm:gap-8 w-max items-center pr-24"
+          >
+            {STEPS.map((step) => (
+              <StepCard key={step.num} step={step} />
+            ))}
+          </motion.div>
         </div>
+
+        {/* Bottom Scroll Indicator Pill */}
+        <div className="w-full max-w-7xl mx-auto mt-6 flex items-center justify-between text-xs text-stone-500 font-bold uppercase tracking-widest relative z-10">
+          <span className="flex items-center gap-2 text-[#c85a32]">
+            <span className="w-2 h-2 rounded-full bg-[#c85a32] animate-pulse" />
+            Scroll Down to Move Cards Horizontally
+          </span>
+          <span className="hidden sm:inline-block text-stone-400">
+            01 → 06 Workflow Steps
+          </span>
+        </div>
+
       </div>
     </section>
   );
