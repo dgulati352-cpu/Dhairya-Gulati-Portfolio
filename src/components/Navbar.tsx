@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Sun, Moon } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { DGLogoIcon } from "./Logo";
-import { useTheme } from "@/context/ThemeContext";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
@@ -16,7 +15,6 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -56,10 +54,10 @@ export default function Navbar() {
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full transition-all duration-300 ${
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur-xl py-3 px-6 shadow-xl shadow-stone-900/5 border border-stone-200/80"
-            : "bg-transparent py-5 px-6 border-b border-transparent"
+            ? "bg-[#121212]/95 backdrop-blur-2xl py-3 px-6 shadow-2xl border border-[#D4AF37]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+            : "bg-[#080808]/80 backdrop-blur-md py-4 px-6 border border-[#D4AF37]/20"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -69,17 +67,17 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "#home")}
             className="flex items-center gap-2.5 group cursor-pointer"
           >
-            <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform drop-shadow-sm">
+            <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform">
               <DGLogoIcon className="w-8 h-8" />
             </div>
-            <span className="font-sans font-extrabold text-lg tracking-tight logo-text transition-colors duration-300 group-hover:opacity-90">
+            <span className="font-serif font-extrabold text-lg tracking-tight gold-text-gradient group-hover:opacity-90 transition-opacity">
               Dhairya Gulati
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C15F3C] animate-pulse shadow-[0_0_8px_#C15F3C]"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_10px_#D4AF37]" />
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 bg-stone-100/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-stone-200/60">
+          <nav className="hidden md:flex items-center gap-1 bg-[#1a1a1a]/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/25">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
@@ -87,14 +85,14 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-4 py-1.5 text-xs uppercase tracking-widest font-bold transition-colors duration-200 rounded-full ${
-                    isActive ? "text-[#C15F3C]" : "text-stone-600 hover:text-stone-900"
+                  className={`relative px-4 py-1.5 text-xs uppercase tracking-widest font-bold transition-all duration-300 rounded-full ${
+                    isActive ? "text-[#D4AF37]" : "text-stone-300 hover:text-[#F3E5AB]"
                   }`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="activeNavIndicator"
-                      className="absolute inset-0 bg-white rounded-full border border-stone-200 shadow-sm"
+                      className="absolute inset-0 bg-[#D4AF37]/15 rounded-full border border-[#D4AF37]/40 shadow-xs"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -104,26 +102,12 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA & Theme Toggle & Mobile Trigger */}
+          {/* CTA & Mobile Trigger */}
           <div className="flex items-center gap-2.5">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-stone-100 hover:bg-stone-200 border border-stone-200 hover:border-[#C15F3C]/40 text-stone-800 transition-all cursor-pointer shadow-sm flex items-center justify-center"
-              aria-label="Toggle Theme"
-              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-amber-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-stone-700" />
-              )}
-            </button>
-
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="hidden sm:flex items-center gap-1.5 px-5 py-2 text-xs uppercase tracking-wider font-bold rounded-full terracotta-button-gradient text-white transition-all shadow-md shadow-[#C15F3C]/25 hover:shadow-[#C15F3C]/40 hover:scale-[1.02] group cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 px-5 py-2 text-xs uppercase tracking-wider font-extrabold rounded-full terracotta-button-gradient text-black transition-all shadow-lg hover:scale-105 active:scale-95 group cursor-pointer"
             >
               <span>Book Call</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -131,10 +115,10 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-full bg-stone-100 border border-stone-200 hover:border-[#C15F3C]/40 transition-all md:hidden text-stone-700 hover:text-stone-900"
+              className="p-2 rounded-full bg-[#1c1c1c] border border-[#D4AF37]/30 transition-all md:hidden text-stone-200 hover:text-[#D4AF37]"
               aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-[#C15F3C]" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-[#D4AF37]" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -148,28 +132,8 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 w-[92%] z-45 bg-white/95 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl flex flex-col gap-4 md:hidden border border-stone-200"
+            className="fixed top-20 left-1/2 -translate-x-1/2 w-[92%] z-45 bg-[#121212]/98 backdrop-blur-3xl rounded-3xl p-6 shadow-2xl flex flex-col gap-4 md:hidden border border-[#D4AF37]/40"
           >
-            <div className="flex items-center justify-between px-2 pb-2 border-b border-stone-200">
-              <span className="text-xs uppercase tracking-widest font-bold text-stone-500">Theme</span>
-              <button
-                onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-xs font-bold text-stone-800"
-              >
-                {theme === "dark" ? (
-                  <>
-                    <Sun className="w-4 h-4 text-amber-400" />
-                    <span>Light Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-4 h-4 text-stone-700" />
-                    <span>Dark Mode</span>
-                  </>
-                )}
-              </button>
-            </div>
-
             <div className="flex flex-col gap-1.5">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.substring(1);
@@ -180,8 +144,8 @@ export default function Navbar() {
                     onClick={(e) => handleNavClick(e, item.href)}
                     className={`px-4 py-3 rounded-2xl text-sm uppercase tracking-wider font-semibold transition-all ${
                       isActive
-                        ? "bg-[#C15F3C]/10 text-[#C15F3C] border border-[#C15F3C]/30"
-                        : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"
+                        ? "bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/40"
+                        : "text-stone-300 hover:bg-[#1a1a1a] hover:text-[#F3E5AB]"
                     }`}
                   >
                     {item.label}
@@ -192,7 +156,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl terracotta-button-gradient text-white font-bold text-sm uppercase tracking-wider shadow-lg shadow-[#C15F3C]/30 transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl terracotta-button-gradient text-black font-extrabold text-sm uppercase tracking-wider shadow-xl transition-transform active:scale-95"
             >
               <span>Book Consultation</span>
               <ArrowUpRight className="w-4 h-4" />

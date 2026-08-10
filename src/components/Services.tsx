@@ -42,7 +42,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         desc: "Designing responsive, intuitive iOS & Android mobile app interfaces with pixel-perfect precision and fluid gesture mechanics.",
         tag: "iOS & Android",
         highlights: ["Gesture Mechanics", "Pixel-Perfect Layouts", "iOS & Android Specs"],
-        accentColor: "from-[#C15F3C] to-[#E27B56]"
+        accentColor: "from-[#F3E5AB] to-[#D4AF37]"
       },
       {
         icon: Palette,
@@ -50,7 +50,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         desc: "Crafting modern, research-backed user journeys that boost customer retention and reduce drop-off friction.",
         tag: "User Experience",
         highlights: ["User Flow Maps", "Friction Reduction", "High Retention UI"],
-        accentColor: "from-[#D66F4A] to-[#C15F3C]"
+        accentColor: "from-[#D4AF37] to-[#AA771C]"
       },
       {
         icon: Layers,
@@ -58,53 +58,61 @@ const SERVICE_GROUPS: ServiceGroup[] = [
         desc: "Structuring scalable component libraries with auto-layouts, dark/light modes, and strict design tokens for developer handoffs.",
         tag: "Figma Master",
         highlights: ["Auto-Layout 5.0", "Design Tokens", "Dev Handoff Ready"],
-        accentColor: "from-[#E27B56] to-[#A04A2A]"
+        accentColor: "from-[#F3E5AB] to-[#AA771C]"
       }
     ]
   },
   {
-    groupTitle: "Systems & Handoff",
-    groupTagline: "Data dashboards & business operational platforms",
+    groupTitle: "Product Dashboards",
+    groupTagline: "Data-dense web applications & management consoles",
     icon: LayoutDashboard,
     services: [
       {
         icon: LayoutDashboard,
-        title: "Dashboard & Analytics",
-        desc: "Transforming complex operational data into sleek visual dashboards, booking calendars, and real-time revenue monitors.",
-        tag: "Data Visualization",
-        highlights: ["Real-Time Metrics", "Booking Calendars", "Interactive Widgets"],
-        accentColor: "from-[#C15F3C] to-[#D66F4A]"
+        title: "SaaS & Web Dashboards",
+        desc: "Transforming complex analytics and enterprise data pipelines into clean, actionable dashboard UIs.",
+        tag: "SaaS & B2B",
+        highlights: ["Analytics Dashboards", "Data Visualization", "Role-Based Navigation"],
+        accentColor: "from-[#D4AF37] to-[#F3E5AB]"
       },
       {
-        icon: Store,
-        title: "Global Business Digital Storefronts",
-        desc: "Empowering global brands, digital storefronts, SaaS platforms, and modern e-commerce apps with high-converting mobile interfaces.",
-        tag: "Global Enterprise",
-        highlights: ["Instant Checkout", "Global Catalog", "Revenue Conversion"],
-        accentColor: "from-[#E27B56] to-[#C15F3C]"
+        icon: Boxes,
+        title: "Admin Management Consoles",
+        desc: "Engineering high-productivity management control panels for e-commerce, inventory, and user management systems.",
+        tag: "Control Panels",
+        highlights: ["Batch Actions", "Data Table Filters", "Rapid Navigation"],
+        accentColor: "from-[#AA771C] to-[#D4AF37]"
       }
     ]
   },
   {
-    groupTitle: "Vertical Specialties",
-    groupTagline: "Industry-tailored mobile applications for high demand",
-    icon: Boxes,
+    groupTitle: "Niche Solutions",
+    groupTagline: "Specialized mobile app UIs for high-growth sectors",
+    icon: Store,
     services: [
       {
         icon: UtensilsCrossed,
-        title: "Restaurant App Systems",
-        desc: "Streamlining dine-in table ordering, digital reservations, interactive food menus, and kitchen order routing.",
-        tag: "Food & Hospitality",
-        highlights: ["Digital Table Menus", "Instant Reservation", "30% Lift Proof"],
-        accentColor: "from-[#D66F4A] to-[#E27B56]"
+        title: "Food & Q-Commerce Apps",
+        desc: "Designing fast-checkout delivery flows, cart management, and real-time order tracking screens like Blinkit & Zomato.",
+        tag: "Q-Commerce",
+        highlights: ["Instant Cart", "Live Delivery Track", "Promo Conversion"],
+        accentColor: "from-[#F3E5AB] to-[#D4AF37]"
       },
       {
         icon: Dumbbell,
-        title: "Gym & Fitness Apps",
-        desc: "Designing engaging workout tracking screens, digital membership passes, trainer bookings, and class schedulers.",
-        tag: "Fitness & Wellness",
-        highlights: ["Workout Trackers", "Trainer Booking", "Member Passes"],
-        accentColor: "from-[#C15F3C] to-[#A04A2A]"
+        title: "Fitness & Habit Tracking",
+        desc: "Interactive workout logs, streak counters, and habit tracking visual charts engineered for daily user engagement.",
+        tag: "Fitness Tech",
+        highlights: ["Streak Counters", "Workout Logs", "Interactive Charts"],
+        accentColor: "from-[#D4AF37] to-[#AA771C]"
+      },
+      {
+        icon: Store,
+        title: "Handloom & Craft Commerce",
+        desc: "Luxury product storytelling layouts and cultural heritage showcase stores that double conversion rates for artisanal brands.",
+        tag: "Heritage E-Com",
+        highlights: ["Storytelling Layouts", "High-Resolution Galleries", "Seamless Checkout"],
+        accentColor: "from-[#AA771C] to-[#F3E5AB]"
       }
     ]
   }
@@ -112,20 +120,23 @@ const SERVICE_GROUPS: ServiceGroup[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-10 md:py-16 px-6">
-      {/* Background gradients */}
-      <div className="absolute bottom-1/4 left-10 w-[350px] h-[350px] bg-[#C15F3C]/5 rounded-full blur-[120px] pointer-events-none" />
+    <section id="services" className="relative py-16 md:py-28 px-6 overflow-hidden bg-[#080808]">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-[#D4AF37]/8 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#AA771C]/6 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="w-full max-w-6xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto relative z-10">
+        
+        {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C15F3C]/30 text-xs uppercase font-bold tracking-[0.25em] text-[#C15F3C] mb-3 shadow-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121212] border border-[#D4AF37]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#D4AF37] mb-3 shadow-xl">
+            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
             <span>Service Tiers</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-white tracking-tight">
             Mobile App & UI/UX Design Services
           </h2>
-          <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
+          <p className="text-stone-300 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Structured design services mapped to launch, scale, and optimize mobile app products.
           </p>
         </div>
@@ -144,17 +155,17 @@ export default function Services() {
                 className="flex flex-col gap-6"
               >
                 {/* Group Header */}
-                <div className="flex items-center justify-between pb-3.5 border-b border-stone-200/90">
+                <div className="flex items-center justify-between pb-3.5 border-b border-[#26221A]">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#C15F3C]/15 to-[#E27B56]/20 text-[#C15F3C] border border-[#C15F3C]/30 shadow-sm">
+                    <div className="p-2.5 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] shadow-sm">
                       <GroupIcon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-serif text-xl font-bold text-stone-900">{group.groupTitle}</h4>
-                      <p className="text-xs text-stone-500 font-medium">{group.groupTagline}</p>
+                      <h4 className="font-serif text-xl font-bold text-white">{group.groupTitle}</h4>
+                      <p className="text-xs text-stone-400 font-medium">{group.groupTagline}</p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full bg-[#C15F3C]/10 text-[#C15F3C] border border-[#C15F3C]/25 shadow-sm">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/30 shadow-sm">
                     Tier 0{groupIdx + 1}
                   </span>
                 </div>
@@ -168,44 +179,44 @@ export default function Services() {
                         key={service.title}
                         whileHover={{ y: -6, scale: 1.015 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        className="bg-white dark:bg-stone-900 rounded-3xl p-7 glass-card-hover group flex flex-col justify-between border border-stone-200/90 dark:border-stone-800 shadow-xl shadow-stone-900/5 relative overflow-hidden cursor-pointer"
+                        className="bg-[#121212] rounded-3xl p-7 group flex flex-col justify-between border border-[#D4AF37]/30 hover:border-[#D4AF37] shadow-2xl relative overflow-hidden cursor-pointer transition-all duration-500"
                       >
                         {/* Top Gradient Highlight Bar */}
                         <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.accentColor}`} />
 
                         <div>
                           <div className="flex items-center justify-between mb-6">
-                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#C15F3C]/10 to-[#E27B56]/20 border border-[#C15F3C]/30 text-[#C15F3C] group-hover:scale-110 transition-all duration-300 shadow-md shadow-[#C15F3C]/10">
+                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] group-hover:scale-110 transition-all duration-300 shadow-md">
                               <Icon className="w-6 h-6" />
                             </div>
-                            <span className="text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-[#C15F3C] shadow-sm">
+                            <span className="text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full bg-[#1c1c1c] border border-[#D4AF37]/30 text-[#F3E5AB]">
                               {service.tag}
                             </span>
                           </div>
 
-                          <h5 className="font-serif text-xl font-bold text-stone-900 mb-2.5 group-hover:text-[#C15F3C] transition-colors duration-200">
+                          <h5 className="font-serif text-xl font-bold text-white mb-2.5 group-hover:text-[#D4AF37] transition-colors duration-200">
                             {service.title}
                           </h5>
-                          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-medium mb-6">
+                          <p className="text-stone-300 text-xs sm:text-sm leading-relaxed font-medium mb-6">
                             {service.desc}
                           </p>
 
                           {/* Highlights Checklist */}
                           <div className="flex flex-wrap gap-2 mb-4">
                             {service.highlights.map((item) => (
-                              <span key={item} className="inline-flex items-center gap-1.5 text-[10px] font-bold text-stone-700 bg-stone-50 border border-stone-200 px-2.5 py-1 rounded-lg">
-                                <CheckCircle2 className="w-3 h-3 text-[#C15F3C]" />
+                              <span key={item} className="inline-flex items-center gap-1.5 text-[10px] font-bold text-stone-200 bg-[#1c1c1c] border border-[#D4AF37]/20 px-2.5 py-1 rounded-lg">
+                                <CheckCircle2 className="w-3 h-3 text-[#D4AF37]" />
                                 <span>{item}</span>
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between">
-                          <span className="text-[10px] uppercase tracking-widest font-extrabold text-stone-400 group-hover:text-[#C15F3C] transition-colors">
+                        <div className="mt-4 pt-4 border-t border-[#26221A] flex items-center justify-between">
+                          <span className="text-[10px] uppercase tracking-widest font-extrabold text-stone-400 group-hover:text-[#D4AF37] transition-colors">
                             Complete UI Handoff Spec
                           </span>
-                          <div className="w-7 h-7 rounded-full bg-stone-100 group-hover:bg-[#C15F3C] text-stone-500 group-hover:text-white flex items-center justify-center transition-all shadow-sm">
+                          <div className="w-7 h-7 rounded-full bg-[#D4AF37]/15 group-hover:bg-[#D4AF37] text-[#D4AF37] group-hover:text-black flex items-center justify-center transition-all shadow-sm">
                             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </div>
                         </div>
