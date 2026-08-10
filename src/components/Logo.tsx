@@ -16,27 +16,75 @@ export function DGLogoIcon({ className = "w-8 h-8" }: { className?: string }) {
       viewBox="0 0 240 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className} transition-all duration-300 drop-shadow-sm dark:drop-shadow-[0_0_14px_rgba(255,107,53,0.45)]`}
-      aria-label="DG Logo Mark"
+      className={`${className} transition-all duration-500 drop-shadow-[0_0_12px_rgba(212,175,55,0.45)] hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]`}
+      aria-label="Dhairya Gulati Luxury Monogram Mark"
     >
-      {/* Letter D - Light: Terracotta / Dark: Glowing Coral Orange */}
+      <defs>
+        {/* Primary Gold Metallic Gradient */}
+        <linearGradient id="goldMetallic" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="25%" stopColor="#F3E5AB" />
+          <stop offset="60%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#AA771C" />
+        </linearGradient>
+
+        {/* Secondary Accent Gold Gradient */}
+        <linearGradient id="goldAccent" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#8A6010" />
+          <stop offset="50%" stopColor="#D4AF37" />
+          <stop offset="100%" stopColor="#FFF4D0" />
+        </linearGradient>
+
+        {/* Outer Shield Glow Radial */}
+        <radialGradient id="logoGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Ambient Glow Background */}
+      <ellipse cx="120" cy="100" rx="100" ry="80" fill="url(#logoGlow)" />
+
+      {/* Geometric Hexagonal Outer Luxury Emblem Frame */}
+      <polygon
+        points="120,12 215,62 215,138 120,188 25,138 25,62"
+        fill="none"
+        stroke="url(#goldMetallic)"
+        strokeWidth="6"
+        strokeLinejoin="round"
+        className="opacity-90"
+      />
+
+      {/* Inner Metallic Accent Hexagon */}
+      <polygon
+        points="120,24 198,68 198,132 120,176 42,132 42,68"
+        fill="none"
+        stroke="url(#goldAccent)"
+        strokeWidth="2"
+        strokeDasharray="4 4"
+        className="opacity-60"
+      />
+
+      {/* Letter D - Sleek Geometric Gold Monogram */}
       <path
-        d="M20 20 H68 C115 20 138 52 138 100 C138 148 115 180 68 180 H20 V20 Z M56 52 V148 H68 C96 148 102 128 102 100 C102 72 96 52 68 52 H56 Z"
-        className="logo-path-d"
+        d="M60 50 H98 C132 50 152 70 152 100 C152 130 132 150 98 150 H60 V50 Z M84 72 V128 H98 C118 128 126 116 126 100 C126 84 118 72 98 72 H84 Z"
+        fill="url(#goldMetallic)"
         fillRule="evenodd"
       />
 
-      {/* Letter G Top Arc - Light: Golden Yellow / Dark: Glowing Cyber Blue */}
+      {/* Letter G - Futuristic Dynamic Interlocking Arc */}
       <path
-        d="M116 52 C128 32 150 20 178 20 C208 20 232 38 238 68 L202 78 C198 62 188 52 174 52 C158 52 146 64 140 82 L116 52 Z"
-        className="logo-path-g-top"
+        d="M130 72 C142 58 160 50 182 50 C206 50 220 64 224 82 L198 90 C195 79 188 72 178 72 C165 72 154 83 150 100 L130 72 Z"
+        fill="url(#goldAccent)"
       />
 
-      {/* Letter G Lower Body - Light: Deep Royal Blue / Dark: Neon Coral */}
       <path
-        d="M140 82 L164 112 C168 134 182 148 202 148 C218 148 232 136 236 116 H180 V88 H238 C239 94 240 102 240 110 C240 152 212 180 174 180 C140 180 118 152 116 110 L140 82 Z"
-        className="logo-path-g-bottom"
+        d="M150 100 L170 122 C174 136 186 148 202 148 C215 148 226 138 228 124 H182 V102 H228 C229 108 230 114 230 120 C230 152 208 174 178 174 C150 174 132 152 130 120 L150 100 Z"
+        fill="url(#goldMetallic)"
       />
+
+      {/* Glowing Central Diamond Node */}
+      <polygon points="120,94 126,100 120,106 114,100" fill="#FFFFFF" />
     </svg>
   );
 }
@@ -71,7 +119,7 @@ export default function Logo({
       <div className={`flex flex-col items-center gap-3 ${className}`}>
         <DGLogoIcon className={iconSizes[size]} />
         <span
-          className={`font-sans font-extrabold tracking-tight logo-text transition-colors duration-300 ${textSizes[size]}`}
+          className={`font-serif font-extrabold tracking-tight gold-text-gradient transition-colors duration-300 ${textSizes[size]}`}
         >
           Dhairya Gulati
         </span>
@@ -83,7 +131,7 @@ export default function Logo({
     <div className={`flex items-center gap-2.5 ${className}`}>
       <DGLogoIcon className={iconSizes[size]} />
       <span
-        className={`font-sans font-extrabold tracking-tight logo-text transition-colors duration-300 ${textSizes[size]}`}
+        className={`font-serif font-extrabold tracking-tight gold-text-gradient transition-colors duration-300 ${textSizes[size]}`}
       >
         Dhairya Gulati
       </span>
