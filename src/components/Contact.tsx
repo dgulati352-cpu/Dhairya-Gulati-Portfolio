@@ -89,7 +89,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 md:py-32 px-6 overflow-hidden">
+    <section id="contact" className="relative py-10 md:py-16 px-6 overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#C15F3C]/5 rounded-full blur-[160px] pointer-events-none" />
 
@@ -123,9 +123,9 @@ export default function Contact() {
             </button>
           </div>
 
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Schedule a Design Consultation
-          </h3>
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+            Contact Dhairya Gulati — Schedule a Call
+          </h2>
           <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Have a project idea? Fill out the form or connect via WhatsApp for an immediate consultation.
           </p>
@@ -146,7 +146,7 @@ export default function Contact() {
                   POSITIONING STATEMENT
                 </span>
                 <h4 className={`font-serif text-lg font-bold mt-2 leading-relaxed italic ${isSectionDark ? "text-white" : "text-stone-900"}`}>
-                  "Dhairya Gulati designs digital experiences that help local businesses grow."
+                  "Dhairya Gulati designs high-converting digital products for global clients & startups."
                 </h4>
               </div>
 
@@ -422,7 +422,7 @@ export default function Contact() {
                       <option value="Dashboard & Analytics">Dashboard & Analytics</option>
                       <option value="Restaurant App System">Restaurant App System</option>
                       <option value="Gym Management App">Gym Management App</option>
-                      <option value="Local Business App">Local Business App</option>
+                      <option value="Global Enterprise App">Global Enterprise App</option>
                       <option value="Other Design Consultation">Other Design Consultation</option>
                     </select>
                   </div>

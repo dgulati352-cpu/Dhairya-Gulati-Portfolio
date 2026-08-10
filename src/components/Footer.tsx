@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowUp, Heart } from "lucide-react";
+import { DGLogoIcon } from "./Logo";
 
 export default function Footer() {
   const handleScrollTop = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,11 +17,9 @@ export default function Footer() {
         {/* Left Side: Brand info */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#E27B56] to-[#C15F3C] flex items-center justify-center text-white font-extrabold text-[10px] shadow-sm">
-              DG
-            </div>
-            <span className="font-serif font-extrabold text-base tracking-wider terracotta-text-gradient">
-              DHAIRYA GULATI
+            <DGLogoIcon className="w-7 h-7" />
+            <span className="font-sans font-extrabold text-base tracking-tight logo-text transition-colors duration-300">
+              Dhairya Gulati
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#C15F3C] shadow-[0_0_8px_#C15F3C]"></span>
           </div>
@@ -28,7 +27,7 @@ export default function Footer() {
             Mobile App & UI/UX Design Studio
           </p>
           <p className="text-xs text-stone-600 font-medium max-w-xs mt-0.5">
-            Crafting digital products that scale local businesses worldwide.
+            Crafting world-class mobile apps & digital products for global clients.
           </p>
         </div>
 

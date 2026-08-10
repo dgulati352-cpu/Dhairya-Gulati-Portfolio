@@ -77,10 +77,10 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       },
       {
         icon: Store,
-        title: "Local Business Digital Storefronts",
-        desc: "Empowering salons, local boutiques, booking agencies, and service shops with high-converting mobile app interfaces.",
-        tag: "Local Enterprise",
-        highlights: ["Instant Booking", "Service Catalog", "Revenue Conversion"],
+        title: "Global Business Digital Storefronts",
+        desc: "Empowering global brands, digital storefronts, SaaS platforms, and modern e-commerce apps with high-converting mobile interfaces.",
+        tag: "Global Enterprise",
+        highlights: ["Instant Checkout", "Global Catalog", "Revenue Conversion"],
         accentColor: "from-[#E27B56] to-[#C15F3C]"
       }
     ]
@@ -112,7 +112,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-24 md:py-32 px-6">
+    <section id="services" className="relative py-10 md:py-16 px-6">
       {/* Background gradients */}
       <div className="absolute bottom-1/4 left-10 w-[350px] h-[350px] bg-[#C15F3C]/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -122,9 +122,9 @@ export default function Services() {
             <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Service Tiers</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Specialized Design Capabilities
-          </h3>
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+            Mobile App & UI/UX Design Services
+          </h2>
           <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Structured design services mapped to launch, scale, and optimize mobile app products.
           </p>
@@ -164,9 +164,11 @@ export default function Services() {
                   {group.services.map((service) => {
                     const Icon = service.icon;
                     return (
-                      <div
+                      <motion.div
                         key={service.title}
-                        className="bg-white rounded-3xl p-7 glass-card-hover group flex flex-col justify-between border border-stone-200/90 shadow-xl shadow-stone-900/5 relative overflow-hidden"
+                        whileHover={{ y: -6, scale: 1.015 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="bg-white dark:bg-stone-900 rounded-3xl p-7 glass-card-hover group flex flex-col justify-between border border-stone-200/90 dark:border-stone-800 shadow-xl shadow-stone-900/5 relative overflow-hidden cursor-pointer"
                       >
                         {/* Top Gradient Highlight Bar */}
                         <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.accentColor}`} />
@@ -207,7 +209,7 @@ export default function Services() {
                             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>

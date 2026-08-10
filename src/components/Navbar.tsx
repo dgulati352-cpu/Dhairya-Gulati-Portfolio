@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sun, Moon } from "lucide-react";
+import { DGLogoIcon } from "./Logo";
+import { useTheme } from "@/context/ThemeContext";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
@@ -14,6 +16,7 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,24 +25,15 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = NAV_ITEMS.map((item) => {
-        const el = document.getElementById(item.href.substring(1));
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return {
-            id: item.href.substring(1),
-            top: rect.top - 120,
-            bottom: rect.bottom - 120,
-          };
-        }
-        return null;
-      }).filter(Boolean);
+      const sections = NAV_ITEMS.map((item) => item.href.substring(1));
+      const scrollPosition = window.scrollY + 200;
 
-      const current = sections.find(
-        (sec) => sec && sec.top <= 0 && sec.bottom > 0
-      );
-      if (current) {
-        setActiveSection(current.id);
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
     };
 
@@ -75,11 +69,11 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "#home")}
             className="flex items-center gap-2.5 group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E27B56] to-[#C15F3C] flex items-center justify-center text-white font-extrabold text-xs shadow-md shadow-[#C15F3C]/20 group-hover:scale-105 transition-transform">
-              DG
+            <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform drop-shadow-sm">
+              <DGLogoIcon className="w-8 h-8" />
             </div>
-            <span className="font-serif font-extrabold text-lg tracking-wider terracotta-text-gradient group-hover:opacity-90 transition-opacity">
-              DHAIRYA.DESIGN
+            <span className="font-sans font-extrabold text-lg tracking-tight logo-text transition-colors duration-300 group-hover:opacity-90">
+              Dhairya Gulati
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#C15F3C] animate-pulse shadow-[0_0_8px_#C15F3C]"></span>
           </a>
@@ -110,8 +104,22 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA & Mobile Trigger */}
-          <div className="flex items-center gap-3">
+          {/* CTA & Theme Toggle & Mobile Trigger */}
+          <div className="flex items-center gap-2.5">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-stone-100 hover:bg-stone-200 border border-stone-200 hover:border-[#C15F3C]/40 text-stone-800 transition-all cursor-pointer shadow-sm flex items-center justify-center"
+              aria-label="Toggle Theme"
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-stone-700" />
+              )}
+            </button>
+
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
@@ -142,6 +150,26 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed top-20 left-1/2 -translate-x-1/2 w-[92%] z-45 bg-white/95 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl flex flex-col gap-4 md:hidden border border-stone-200"
           >
+            <div className="flex items-center justify-between px-2 pb-2 border-b border-stone-200">
+              <span className="text-xs uppercase tracking-widest font-bold text-stone-500">Theme</span>
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-xs font-bold text-stone-800"
+              >
+                {theme === "dark" ? (
+                  <>
+                    <Sun className="w-4 h-4 text-amber-400" />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4 text-stone-700" />
+                    <span>Dark Mode</span>
+                  </>
+                )}
+              </button>
+            </div>
+
             <div className="flex flex-col gap-1.5">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.substring(1);

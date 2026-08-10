@@ -59,7 +59,7 @@ const STEPS: Step[] = [
 
 export default function Process() {
   return (
-    <section id="process" className="relative py-24 md:py-32 px-6">
+    <section id="process" className="relative py-10 md:py-16 px-6">
       {/* Background gradients */}
       <div className="absolute top-1/4 right-0 w-[350px] h-[350px] bg-[#C15F3C]/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -69,9 +69,9 @@ export default function Process() {
             <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Workflow Roadmap</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
-            How I Build High-Impact Products
-          </h3>
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+            Structured Product & UI/UX Design Process
+          </h2>
           <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             A battle-tested 6-step design process engineered for speed, quality, and business results.
           </p>

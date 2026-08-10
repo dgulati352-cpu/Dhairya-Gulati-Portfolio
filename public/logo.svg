@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <g transform="translate(80, 20)">
+    <!-- Letter D - Deep Royal Blue -->
+    <path
+      d="M20 20 H68 C115 20 138 52 138 100 C138 148 115 180 68 180 H20 V20 Z M56 52 V148 H68 C96 148 102 128 102 100 C102 72 96 52 68 52 H56 Z"
+      fill="#16478A"
+      fill-rule="evenodd"
+    />
+    <!-- Letter G - Top Golden Yellow Arc -->
+    <path
+      d="M116 52 C128 32 150 20 178 20 C208 20 232 38 238 68 L202 78 C198 62 188 52 174 52 C158 52 146 64 140 82 L116 52 Z"
+      fill="#EAAB27"
+    />
+    <!-- Letter G - Deep Purple Lower Body & Crossbar -->
+    <path
+      d="M140 82 L164 112 C168 134 182 148 202 148 C218 148 232 136 236 116 H180 V88 H238 C239 94 240 102 240 110 C240 152 212 180 174 180 C140 180 118 152 116 110 L140 82 Z"
+      fill="#481B5B"
+    />
+  </g>
+  <text
+    x="200"
+    y="255"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    font-weight="700"
+    font-size="38"
+    fill="#0B132B"
+    letter-spacing="-0.5"
+  >Dhairya Gulati</text>
+</svg>

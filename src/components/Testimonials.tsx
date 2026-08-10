@@ -41,7 +41,7 @@ const TESTIMONIALS: Testimonial[] = [
 
 export default function Testimonials() {
   return (
-    <section className="relative py-24 md:py-32 px-6">
+    <section className="relative py-10 md:py-16 px-6">
       {/* Background soft highlights */}
       <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-[#C15F3C]/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -52,9 +52,9 @@ export default function Testimonials() {
             <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Client Endorsements</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Client Success Stories
-          </h3>
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+            Client Reviews & Success Stories
+          </h2>
           <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Read how my mobile UI/UX designs help local brands deliver premium experiences to their clients.
           </p>

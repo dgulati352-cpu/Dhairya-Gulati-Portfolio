@@ -2,14 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, Eye, Sparkles, AlertCircle, Wrench, Lightbulb } from "lucide-react";
+import { X, ArrowRight, Eye, Sparkles, AlertCircle, Wrench, Lightbulb, ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 interface Project {
   id: string;
   title: string;
   category: string;
-  filterCategory: "Hospitality" | "IoT & Hardware" | "Retail & Commerce";
+  filterCategory: "Hospitality" | "IoT & Hardware" | "Retail & Commerce" | "Agritech & B2B";
   stack: string[];
   image: string;
   tagline: string;
@@ -19,9 +19,29 @@ interface Project {
   learned: string;
   metrics: string[];
   isFeatured?: boolean;
+  demoUrl?: string;
 }
 
 const PROJECTS: Project[] = [
+  {
+    id: "agrilog",
+    title: "Agrilog – B2B Agri Marketplace",
+    category: "B2B Marketplace & PWA",
+    filterCategory: "Agritech & B2B",
+    stack: ["React", "Tailwind CSS", "TypeScript", "Firebase", "PWA"],
+    image: "/agrilog.png",
+    demoUrl: "https://agrilog-pi.vercel.app",
+    tagline: "B2B agriculture marketplace connecting verified buyers and suppliers directly with real-time leads.",
+    overview: "I built a B2B agricultural commodity trading marketplace and progressive web app (PWA) that allows verified buyers to post bulk crop requirements and connect directly with verified suppliers for live pricing proposals.",
+    problem: "Cross-border and domestic wholesale agricultural trade relies on fragmented broker networks, opaque pricing structures, and delayed communication channels, leading to high transaction overhead and sourcing delays for bulk commodity buyers.",
+    tradeoffs: "To support rural agricultural trading environments with spotty connectivity, I structured the platform as an installable PWA with offline lead drafting and optimistic updates. I prioritized fast lead submission forms over heavy catalog media to keep page payloads minimal on mobile networks.",
+    learned: "Designing for B2B agricultural users requires minimal friction in intent broadcasting. Providing clear commodity categories, instant timeline specification, and verified supplier trust badges dramatically improved lead posting efficiency.",
+    metrics: [
+      "Instant commodity lead broadcasting",
+      "Offline-capable PWA architecture",
+      "Direct buyer-to-supplier proposal flow"
+    ]
+  },
   {
     id: "hotel",
     title: "Boutique Hotel Operations Manager",
@@ -29,6 +49,7 @@ const PROJECTS: Project[] = [
     filterCategory: "Hospitality",
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Figma"],
     image: "/hotel.png",
+    demoUrl: "https://hotel-customer.vercel.app",
     tagline: "Real-time room management and check-in interface for 15-to-40 room hotels.",
     overview: "I built a real-time operations dashboard and guest check-in interface for independent boutique hotels. It lets front-desk staff process guest arrivals on a tablet while room attendants toggle clean/dirty status from their phones.",
     problem: "Small hotel owners usually can't afford expensive enterprise PMS software, so they end up managing room readiness across WhatsApp groups and paper logbooks. This leads to staff constantly asking each other if rooms are clean, delayed check-ins during peak arrival hours, and double-bookings when reservations come in offline.",
@@ -48,6 +69,7 @@ const PROJECTS: Project[] = [
     filterCategory: "IoT & Hardware",
     stack: ["React Native", "Tailwind CSS", "Figma", "Node.js"],
     image: "/powerbank.png",
+    demoUrl: "https://power-bank-fawn.vercel.app",
     tagline: "Scan-to-unlock mobile interface for hardware-connected charging kiosks.",
     overview: "I designed and prototyped the mobile UI for a hardware-connected power bank rental network. Users scan a QR code on a physical kiosk to unlock a portable charger and return it at any station in the city.",
     problem: "Most rental apps fail because users are already anxious about a dying phone battery. If the app takes more than two screens or 10 seconds to authorize a rental, the user's phone shuts off mid-transaction, leaving them without power and locking up station hardware state.",
@@ -66,6 +88,7 @@ const PROJECTS: Project[] = [
     filterCategory: "Retail & Commerce",
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Framer"],
     image: "/handloom.png",
+    demoUrl: "https://handloom-lemon.vercel.app",
     tagline: "Mobile-first store connecting rural weaving clusters with retail buyers.",
     overview: "I designed a mobile-first e-commerce store connecting rural weaving clusters directly with retail buyers. The app focuses on fast product filtering, clear fabric weave details, and direct artisan attribution.",
     problem: "Handmade textiles cost 3x more than powerloom garments, but typical e-commerce layouts treat them like commodity t-shirts. Buyers couldn't see why a handwoven saree cost more because product pages lacked provenance details, thread counts, and artisan background information.",
@@ -78,21 +101,22 @@ const PROJECTS: Project[] = [
     ]
   },
   {
-    id: "restaurant",
-    title: "Spice Bistro Restaurant System",
-    category: "Mobile App & Table Ordering",
-    filterCategory: "Hospitality",
-    stack: ["Figma", "React Native", "Tailwind CSS", "Node.js"],
-    image: "/hotel.png",
-    tagline: "Digital table ordering, reservations, and interactive digital menus.",
-    overview: "I designed a digital table ordering and reservation platform for high-footfall dining restaurants. Guests scan QR codes at tables to browse visual menus, customize dishes, and place orders directly to the kitchen.",
-    problem: "During peak dinner hours, waiters were overwhelmed taking orders, leading to 25-minute delays, incorrect dietary customizations, and table turnover bottlenecks.",
-    tradeoffs: "I initially built a complex multi-step customization modal for every dish. In busy dining environments, customers found it confusing and reverted to calling waiters. I redesigned the menu interface into flat 1-tap add-on chips and sticky order summaries, reducing ordering steps from 5 to 2.",
-    learned: "Dining apps must prioritize quick ordering speed over deep menu customization. Simplifying the ordering flow increased table booking conversions by 30% in two weeks while reducing kitchen ticket errors.",
+    id: "blinkit",
+    title: "Blinkit Quick-Commerce Storefront",
+    category: "Quick Commerce & Retail UI",
+    filterCategory: "Retail & Commerce",
+    stack: ["Next.js", "Tailwind CSS", "TypeScript", "Figma"],
+    image: "/blinkit.png",
+    demoUrl: "https://shop-seven-roan.vercel.app",
+    tagline: "10-minute grocery & instant delivery mobile storefront UI experience.",
+    overview: "I designed and built an instant 10-minute quick-commerce grocery mobile interface. It features ultra-fast category navigation, real-time cart subtotal calculation, instant search, and streamlined 2-tap checkout.",
+    problem: "Traditional e-commerce apps force multi-step checkouts and heavy cart transitions that slow down impulse purchases for 10-minute quick-commerce buyers who expect instantaneous basket updates and friction-free payment flows.",
+    tradeoffs: "I prioritized instant client-side cart state synchronization and optimistic UI state over heavy server roundtrips. I replaced complex modal overlays with floating bottom-sheet carts and quick-add quantity counters, reducing checkout tap friction.",
+    learned: "In quick-commerce mobile UX, every microsecond matters. Implementing sub-second category switching and optimistic cart updates drastically improves basket completion rates.",
     metrics: [
-      "30% increase in table-booking conversions",
-      "2-tap order checkout flow",
-      "Zero kitchen ticket customization errors"
+      "Sub-100ms basket update latency",
+      "2-tap instant checkout flow",
+      "Optimized for mobile-first quick commerce"
     ]
   }
 ];
@@ -101,7 +125,8 @@ const FILTER_CATEGORIES = [
   "All Work",
   "Hospitality",
   "IoT & Hardware",
-  "Retail & Commerce"
+  "Retail & Commerce",
+  "Agritech & B2B"
 ] as const;
 
 export default function Projects() {
@@ -114,7 +139,7 @@ export default function Projects() {
   });
 
   return (
-    <section id="projects" className="relative py-24 md:py-32 px-6">
+    <section id="projects" className="relative py-10 md:py-16 px-6">
       {/* Background radial glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C15F3C]/5 rounded-full blur-[160px] pointer-events-none" />
 
@@ -124,9 +149,9 @@ export default function Projects() {
             <Sparkles className="w-3.5 h-3.5 text-[#C15F3C]" />
             <span>Featured Portfolio</span>
           </div>
-          <h3 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Selected Product Case Studies
-          </h3>
+          <h2 className="font-serif text-3xl md:text-5xl font-extrabold text-stone-900 tracking-tight">
+            Mobile App & UI/UX Case Studies
+          </h2>
           <p className="text-stone-600 max-w-lg mx-auto mt-4 text-sm md:text-base font-medium">
             Real problems, real architectural trade-offs, and practical lessons from building digital products.
           </p>
@@ -137,17 +162,19 @@ export default function Projects() {
           {FILTER_CATEGORIES.map((cat) => {
             const isActive = activeFilter === cat;
             return (
-              <button
+              <motion.button
                 key={cat}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveFilter(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                   isActive
                     ? "bg-[#C15F3C] text-white border-[#C15F3C] shadow-lg shadow-[#C15F3C]/25"
-                    : "bg-white text-stone-600 border-stone-200 hover:text-stone-900 hover:border-[#C15F3C]/40 shadow-sm"
+                    : "bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-300 border-stone-200 dark:border-stone-800 hover:text-stone-900 dark:hover:text-white hover:border-[#C15F3C]/40 shadow-sm"
                 }`}
               >
                 {cat}
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -162,12 +189,13 @@ export default function Projects() {
                 key={project.id}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8, scale: 1.015 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
                 onClick={() => setSelectedProject(project)}
                 className={`${
                   isHeroCard ? "md:col-span-8" : "md:col-span-4"
-                } bg-white rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col justify-between border border-stone-200/90 shadow-xl shadow-stone-900/5`}
+                } bg-white dark:bg-stone-900 rounded-3xl overflow-hidden glass-card-hover group cursor-pointer flex flex-col justify-between border border-stone-200/90 dark:border-stone-800 shadow-xl shadow-stone-900/5`}
               >
                 {/* Image Frame */}
                 <div className={`relative ${isHeroCard ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-stone-900 border-b border-stone-200`}>
@@ -185,11 +213,23 @@ export default function Projects() {
                     </span>
                   )}
 
-                  <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-wrap items-center justify-center gap-3 p-4">
                     <div className="flex items-center gap-2 px-5 py-2.5 rounded-full terracotta-button-gradient font-bold text-xs uppercase tracking-wider text-white shadow-lg shadow-[#C15F3C]/30 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                       <span>Read Case Study</span>
                       <Eye className="w-4 h-4 text-white" />
                     </div>
+                    {project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white text-stone-900 hover:bg-stone-100 font-bold text-xs uppercase tracking-wider shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border border-stone-200"
+                      >
+                        <span>Live Demo</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-[#C15F3C]" />
+                      </a>
+                    )}
                   </div>
                 </div>
 
@@ -211,14 +251,28 @@ export default function Projects() {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
+                  <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-2">
                     <span className="text-xs font-bold text-stone-700 group-hover:text-[#C15F3C] transition-colors flex items-center gap-1.5">
                       <span>View Breakdown</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </span>
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 border border-stone-200">
-                      Developer Spec
-                    </span>
+                    <div className="flex items-center gap-2">
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-[#C15F3C] text-white hover:bg-[#a84f2f] transition-all flex items-center gap-1 shadow-sm"
+                        >
+                          <span>Live App</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 border border-stone-200">
+                        Developer Spec
+                      </span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -264,17 +318,31 @@ export default function Projects() {
                   <X className="w-5 h-5" />
                 </button>
 
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {selectedProject.stack.map((tech) => (
-                      <span key={tech} className="text-xs font-bold text-white bg-[#C15F3C] border border-[#C15F3C] px-3 py-0.5 rounded-full shadow-sm">
-                        {tech}
-                      </span>
-                    ))}
+                <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {selectedProject.stack.map((tech) => (
+                        <span key={tech} className="text-xs font-bold text-white bg-[#C15F3C] border border-[#C15F3C] px-3 py-0.5 rounded-full shadow-sm">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="font-serif text-2xl sm:text-4xl font-extrabold text-white">
+                      {selectedProject.title}
+                    </h3>
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-4xl font-extrabold text-white">
-                    {selectedProject.title}
-                  </h3>
+
+                  {selectedProject.demoUrl && (
+                    <a
+                      href={selectedProject.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 px-4 py-2.5 rounded-xl bg-[#C15F3C] hover:bg-[#a84f2f] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg border border-white/20"
+                    >
+                      <span>Open Live Demo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -282,10 +350,21 @@ export default function Projects() {
               <div className="p-6 sm:p-8 flex flex-col gap-8">
                 
                 {/* Lead Summary */}
-                <div className="p-5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/25">
+                <div className="p-5 rounded-2xl bg-[#C15F3C]/10 border border-[#C15F3C]/25 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <p className="text-stone-900 text-sm sm:text-base font-semibold leading-relaxed">
                     {selectedProject.overview}
                   </p>
+                  {selectedProject.demoUrl && (
+                    <a
+                      href={selectedProject.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 px-4 py-2 rounded-xl bg-white border border-[#C15F3C]/40 text-[#C15F3C] hover:bg-[#C15F3C] hover:text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-sm"
+                    >
+                      <span>Launch App</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
                 </div>
 
                 {/* The Problem */}
@@ -336,7 +415,20 @@ export default function Projects() {
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-6 border-t border-stone-200 flex items-center justify-end bg-stone-100/80">
+              <div className="p-4 sm:p-6 border-t border-stone-200 flex flex-wrap items-center justify-between gap-3 bg-stone-100/80">
+                {selectedProject.demoUrl ? (
+                  <a
+                    href={selectedProject.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-xl bg-[#C15F3C] hover:bg-[#a84f2f] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-md"
+                  >
+                    <span>Visit Live App ({selectedProject.demoUrl.replace(/^https?:\/\//, '')})</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <div />
+                )}
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="px-6 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-200 font-bold text-xs uppercase tracking-wider text-stone-800 transition-colors cursor-pointer"
