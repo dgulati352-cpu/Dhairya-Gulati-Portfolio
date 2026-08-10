@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Search, Compass, Columns, Palette, Layers, Rocket, Sparkles } from "lucide-react";
+import { Sparkles, Search, Compass, Columns, Palette, Layers, Rocket } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface Step {
   num: string;
@@ -64,7 +65,6 @@ const STEPS: Step[] = [
   }
 ];
 
-// Typewriter Card Component with Intersection Observer
 function StepCard({ step }: { step: Step }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -82,7 +82,7 @@ function StepCard({ step }: { step: Step }) {
           setHasStarted(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.35 }
     );
 
     if (cardRef.current) {
@@ -98,7 +98,7 @@ function StepCard({ step }: { step: Step }) {
     if (displayedTitle.length < step.title.length) {
       const timeout = setTimeout(() => {
         setDisplayedTitle(step.title.slice(0, displayedTitle.length + 1));
-      }, 40);
+      }, 35);
       return () => clearTimeout(timeout);
     } else {
       setIsTitleDone(true);
@@ -111,7 +111,7 @@ function StepCard({ step }: { step: Step }) {
     if (displayedDesc.length < step.desc.length) {
       const timeout = setTimeout(() => {
         setDisplayedDesc(step.desc.slice(0, displayedDesc.length + 1));
-      }, 18);
+      }, 15);
       return () => clearTimeout(timeout);
     } else {
       setIsDescDone(true);
@@ -123,26 +123,26 @@ function StepCard({ step }: { step: Step }) {
   return (
     <div
       ref={cardRef}
-      className="w-[330px] sm:w-[390px] md:w-[430px] h-[360px] sm:h-[380px] shrink-0 bg-[#1a1614] rounded-3xl p-6 sm:p-7 border border-[#2c2420] shadow-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-[#c85a32]/60 hover:shadow-[#c85a32]/10 cursor-pointer"
+      className="w-[340px] sm:w-[410px] md:w-[450px] h-[370px] sm:h-[400px] shrink-0 bg-[#1a1614] rounded-3xl p-6 sm:p-8 border border-[#2c2420] shadow-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-[#c85a32]/60 hover:shadow-[#c85a32]/10 cursor-pointer"
     >
-      {/* Faded Background Index Number */}
-      <span className="absolute -right-2 -top-4 text-[95px] sm:text-[115px] font-serif font-extrabold text-[#c85a32]/12 select-none pointer-events-none group-hover:text-[#c85a32]/22 transition-colors duration-300">
+      {/* Massive Faded Background Index Number */}
+      <span className="absolute -right-3 -top-6 text-[110px] sm:text-[140px] font-serif font-extrabold text-[#c85a32]/12 select-none pointer-events-none group-hover:text-[#c85a32]/22 transition-colors duration-300 leading-none">
         {step.num}
       </span>
 
       {/* Top Header: Icon & Step Label */}
       <div className="flex items-center gap-4 relative z-10">
-        <div className="p-3 rounded-2xl bg-[#c85a32]/15 border border-[#c85a32]/30 text-[#c85a32] shadow-xs group-hover:bg-[#c85a32] group-hover:text-white transition-colors duration-300">
+        <div className="p-3 sm:p-3.5 rounded-2xl bg-[#c85a32]/15 border border-[#c85a32]/30 text-[#c85a32] shadow-xs group-hover:bg-[#c85a32] group-hover:text-white transition-colors duration-300">
           <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#c85a32]">
+        <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#c85a32]">
           {step.stepLabel}
         </span>
       </div>
 
       {/* Center: Typewriter Title & Description */}
       <div className="relative z-10 my-auto">
-        <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-white mb-3 leading-snug min-h-[2.5rem]">
+        <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-white mb-3 leading-snug min-h-[2.75rem]">
           {displayedTitle}
           {isVisible && !isTitleDone && (
             <span className="inline-block animate-pulse text-[#c85a32] ml-0.5 font-sans font-normal">|</span>
@@ -172,66 +172,81 @@ function StepCard({ step }: { step: Step }) {
 }
 
 export default function Process() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  // Smooth scroll translation from 0% to -72% across 6 cards
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-72%"]);
+    const sectionEl = sectionRef.current;
+    const trackEl = trackRef.current;
+
+    if (!sectionEl || !trackEl) return;
+
+    const ctx = gsap.context(() => {
+      const getScrollAmount = () => {
+        return -(trackEl.scrollWidth - window.innerWidth + 120);
+      };
+
+      gsap.to(trackEl, {
+        x: getScrollAmount,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionEl,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${trackEl.scrollWidth - window.innerWidth + 240}`,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="process"
-      ref={containerRef}
-      className="relative bg-[#12100e] text-white py-12 md:py-0 min-h-[280vh] w-full overflow-hidden"
+      ref={sectionRef}
+      className="relative bg-[#12100e] text-white h-screen w-full overflow-hidden flex flex-col justify-between py-8 px-6 sm:px-12 md:px-16"
     >
-      {/* Sticky Full-Height Viewport Track */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-6 sm:px-12 md:px-16">
-        
-        {/* Ambient Glow Effects */}
-        <div className="absolute top-1/4 left-10 w-[450px] h-[450px] bg-[#c85a32]/10 rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#c85a32]/8 rounded-full blur-[160px] pointer-events-none" />
+      {/* Ambient Glow Highlights */}
+      <div className="absolute top-1/4 left-10 w-[450px] h-[450px] bg-[#c85a32]/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#c85a32]/8 rounded-full blur-[160px] pointer-events-none" />
 
-        {/* Section Header */}
-        <div className="w-full max-w-7xl mx-auto mb-6 md:mb-10 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1a1614] border border-[#c85a32]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#c85a32] mb-3 shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-[#c85a32]" />
-            <span>Interactive Workflow Roadmap</span>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Structured Product & UI/UX Design Process
-          </h2>
-          <p className="text-stone-400 max-w-xl mt-3 text-xs sm:text-sm font-medium">
-            Scroll down to watch the step-by-step feature cards move horizontally into view with real-time typewriter reveals.
-          </p>
+      {/* Section Top Header */}
+      <div className="w-full max-w-7xl mx-auto relative z-10 pt-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1a1614] border border-[#c85a32]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#c85a32] mb-3 shadow-lg">
+          <Sparkles className="w-3.5 h-3.5 text-[#c85a32]" />
+          <span>Interactive Workflow Roadmap</span>
         </div>
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          Structured Product & UI/UX Design Process
+        </h2>
+      </div>
 
-        {/* Horizontal Motion Container */}
-        <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-3xl py-4">
-          <motion.div
-            style={{ x }}
-            className="flex gap-6 sm:gap-8 w-max items-center pr-24"
-          >
-            {STEPS.map((step) => (
-              <StepCard key={step.num} step={step} />
-            ))}
-          </motion.div>
+      {/* Horizontal GSAP Scrubbed Track Container */}
+      <div className="w-full max-w-7xl mx-auto overflow-hidden relative z-10 my-auto py-4">
+        <div
+          ref={trackRef}
+          className="flex gap-6 sm:gap-8 w-max items-center pr-24"
+        >
+          {STEPS.map((step) => (
+            <StepCard key={step.num} step={step} />
+          ))}
         </div>
+      </div>
 
-        {/* Bottom Scroll Indicator Pill */}
-        <div className="w-full max-w-7xl mx-auto mt-6 flex items-center justify-between text-xs text-stone-500 font-bold uppercase tracking-widest relative z-10">
-          <span className="flex items-center gap-2 text-[#c85a32]">
-            <span className="w-2 h-2 rounded-full bg-[#c85a32] animate-pulse" />
-            Scroll Down to Move Cards Horizontally
-          </span>
-          <span className="hidden sm:inline-block text-stone-400">
-            01 → 06 Workflow Steps
-          </span>
-        </div>
-
+      {/* Bottom Status Footer */}
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-stone-400 font-bold uppercase tracking-widest relative z-10 pb-4 border-t border-[#2c2420] pt-4">
+        <span className="flex items-center gap-2.5 text-[#c85a32]">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#c85a32] animate-pulse shadow-[0_0_8px_#c85a32]" />
+          SCROLL DOWN TO MOVE CARDS HORIZONTALLY
+        </span>
+        <span className="text-stone-400 font-semibold tracking-[0.15em]">
+          01 → 06 WORKFLOW STEPS
+        </span>
       </div>
     </section>
   );
