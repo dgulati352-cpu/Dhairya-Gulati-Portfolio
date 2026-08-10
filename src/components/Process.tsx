@@ -25,6 +25,7 @@ interface Step {
   deliverables: string[];
   deliverableLabel: string;
   metric: string;
+  details: string;
 }
 
 const STEPS: Step[] = [
@@ -36,7 +37,8 @@ const STEPS: Step[] = [
     desc: "Deconstructing target business models, evaluating local competition, and mapping user pain points to unlock high-impact opportunities.",
     deliverables: ["Stakeholder Interviews", "Workflow Audit", "Pain Point Mapping", "UI/UX Opportunities"],
     deliverableLabel: "Research Specs & Insights",
-    metric: "100% Insight Accuracy"
+    metric: "100% Insight Accuracy",
+    details: "Conducting stakeholder interviews, auditing existing manual workflows, and identifying high-impact UI opportunities."
   },
   {
     num: "02",
@@ -46,7 +48,8 @@ const STEPS: Step[] = [
     desc: "Defining clear core features, app navigation architecture, and conversion-focused user journeys engineered for global scale.",
     deliverables: ["Information Architecture", "Milestone Mapping", "User Flow Diagrams", "Screen Hierarchy"],
     deliverableLabel: "Product Blueprint",
-    metric: "Seamless UX Architecture"
+    metric: "Seamless UX Architecture",
+    details: "Establishing milestone targets, mapping primary user actions, and structuring seamless screen hierarchies."
   },
   {
     num: "03",
@@ -56,7 +59,8 @@ const STEPS: Step[] = [
     desc: "Building low-fidelity screen blueprints to validate information layout, thumb accessibility, and screen transitions before visual polish.",
     deliverables: ["Low-Fi Blueprints", "Thumb Accessibility", "CTA Optimization", "Screen Transitions"],
     deliverableLabel: "Interactive Wireframes",
-    metric: "Rapid Layout Validation"
+    metric: "Rapid Layout Validation",
+    details: "Focusing strictly on intuitive navigation, thumb accessibility, and clear call-to-action button placements."
   },
   {
     num: "04",
@@ -66,7 +70,8 @@ const STEPS: Step[] = [
     desc: "Crafting luxury interface mockups with dark-mode visual aesthetics, custom color tokens, and pixel-perfect typography.",
     deliverables: ["Figma Design System", "Custom Color Tokens", "Pixel-Perfect Grids", "Dark Mode Styling"],
     deliverableLabel: "High-Fi UI System",
-    metric: "Luxury Visual Polish"
+    metric: "Luxury Visual Polish",
+    details: "Applying custom color tokens, pixel-perfect layout grids, custom icons, and brand design elements."
   },
   {
     num: "05",
@@ -76,7 +81,8 @@ const STEPS: Step[] = [
     desc: "Linking mockups in Figma into fluid, interactive prototypes featuring natural gesture micro-interactions and state feedback.",
     deliverables: ["Figma Prototype", "Micro-Interactions", "Modal Overlays", "Form Feedback"],
     deliverableLabel: "Clickable Prototype",
-    metric: "Real-Feel User Testing"
+    metric: "Real-Feel User Testing",
+    details: "Adding natural gesture micro-interactions, modal overlays, animated state transitions, and form feedback."
   },
   {
     num: "06",
@@ -86,7 +92,8 @@ const STEPS: Step[] = [
     desc: "Structuring clean Figma component libraries, exporting production code assets, and providing ongoing engineering support.",
     deliverables: ["Design Tokens JSON", "Asset Export Package", "Component Specs", "Post-Launch QA"],
     deliverableLabel: "Production Handoff",
-    metric: "Zero-Friction Launch"
+    metric: "Zero-Friction Launch",
+    details: "Delivering complete design tokens, responsive guidelines, asset exports, and post-launch QA assistance."
   }
 ];
 
@@ -94,7 +101,8 @@ function StepCard({ step, index }: { step: Step; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [displayedTitle, setDisplayedTitle] = useState("");
   const [displayedDesc, setDisplayedDesc] = useState("");
-  const [phase, setPhase] = useState<"idle" | "title" | "desc" | "done">("idle");
+  const [displayedDetails, setDisplayedDetails] = useState("");
+  const [phase, setPhase] = useState<"idle" | "title" | "desc" | "details" | "done">("idle");
   const isEven = index % 2 === 0;
 
   useEffect(() => {
@@ -104,7 +112,7 @@ function StepCard({ step, index }: { step: Step; index: number }) {
           setPhase("title");
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.25 }
     );
 
     if (cardRef.current) {
@@ -127,7 +135,7 @@ function StepCard({ step, index }: { step: Step; index: number }) {
     }
   }, [phase, displayedTitle, step.title]);
 
-  // Phase 2: Description Typewriter
+  // Phase 2: Primary Description Typewriter
   useEffect(() => {
     if (phase !== "desc") return;
     if (displayedDesc.length < step.desc.length) {
@@ -136,16 +144,29 @@ function StepCard({ step, index }: { step: Step; index: number }) {
       }, 12);
       return () => clearTimeout(timeout);
     } else {
-      setPhase("done");
+      setPhase("details");
     }
   }, [phase, displayedDesc, step.desc]);
+
+  // Phase 3: Sub-description Typewriter
+  useEffect(() => {
+    if (phase !== "details") return;
+    if (displayedDetails.length < step.details.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedDetails(step.details.slice(0, displayedDetails.length + 1));
+      }, 12);
+      return () => clearTimeout(timeout);
+    } else {
+      setPhase("done");
+    }
+  }, [phase, displayedDetails, step.details]);
 
   const Icon = step.icon;
 
   return (
     <div
       ref={cardRef}
-      className={`relative w-full my-6 md:my-10 flex flex-col md:flex-row items-center ${
+      className={`relative w-full my-10 md:my-16 flex flex-col md:flex-row items-center ${
         isEven ? "md:flex-row-reverse" : ""
       }`}
     >
@@ -162,14 +183,14 @@ function StepCard({ step, index }: { step: Step; index: number }) {
         </div>
       </div>
 
-      {/* Card Body Container */}
+      {/* Card Body Container with Generous Gap (md:w-[calc(50%-4.5rem)] and pl-24 on mobile) */}
       <motion.div
         initial={{ opacity: 0, x: isEven ? -40 : 40, y: 20 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
         whileHover={{ y: -6, scale: 1.01 }}
-        className="w-full md:w-[calc(50%-2.5rem)] pl-16 md:pl-0"
+        className="w-full md:w-[calc(50%-4.5rem)] pl-24 md:pl-0"
       >
         <div className="bg-[#1a1614]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-[#2c2420] shadow-[0_15px_35px_rgba(0,0,0,0.4)] relative overflow-hidden group hover:border-[#c85a32]/70 hover:shadow-[0_15px_40px_rgba(200,90,50,0.2)] transition-all duration-500 cursor-pointer">
           
@@ -212,8 +233,21 @@ function StepCard({ step, index }: { step: Step; index: number }) {
             </p>
           </div>
 
+          {/* Sub-description (Details) Typewriter Section */}
+          <div className="pt-4 border-t border-[#2c2420] relative z-10 mb-5">
+            <p className="text-stone-400 text-xs leading-relaxed font-medium flex items-start gap-2.5 min-h-[1.75rem]">
+              <span className="w-2 h-2 rounded-full bg-[#c85a32] shrink-0 mt-1" />
+              <span>
+                {displayedDetails}
+                {phase === "details" && (
+                  <span className="inline-block animate-pulse text-[#c85a32] ml-1 font-sans font-normal">|</span>
+                )}
+              </span>
+            </p>
+          </div>
+
           {/* Deliverable Tags Grid */}
-          <div className="relative z-10 mb-5">
+          <div className="relative z-10 pt-3 border-t border-[#2c2420]">
             <span className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-2">
               Deliverables & Outputs
             </span>
@@ -228,17 +262,6 @@ function StepCard({ step, index }: { step: Step; index: number }) {
                 </span>
               ))}
             </div>
-          </div>
-
-          {/* Bottom Footer Artifact Status */}
-          <div className="pt-4 border-t border-[#2c2420] relative z-10 flex items-center justify-between text-xs text-stone-400">
-            <span className="flex items-center gap-1.5 font-mono text-[11px] text-stone-400">
-              <Terminal className="w-3.5 h-3.5 text-[#c85a32]" />
-              {step.deliverableLabel}
-            </span>
-            <span className="text-[10px] font-bold text-[#c85a32] uppercase tracking-wider">
-              Phase {step.num} Verified ✓
-            </span>
           </div>
 
         </div>
@@ -303,8 +326,8 @@ export default function Process() {
             className="absolute left-6 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#c85a32] via-[#e27b56] to-[#c85a32] shadow-[0_0_12px_#c85a32] z-10"
           />
 
-          {/* Step Cards List */}
-          <div className="flex flex-col gap-6 md:gap-4 relative z-10">
+          {/* Step Cards List with Generous Spacing */}
+          <div className="flex flex-col gap-8 md:gap-12 relative z-10">
             {STEPS.map((step, idx) => (
               <StepCard key={step.num} step={step} index={idx} />
             ))}
@@ -317,7 +340,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 sm:mt-24 p-6 sm:p-8 rounded-3xl bg-[#1a1614] border border-[#c85a32]/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden"
+          className="mt-20 sm:mt-28 p-6 sm:p-8 rounded-3xl bg-[#1a1614] border border-[#c85a32]/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden"
         >
           <div className="flex items-center gap-4">
             <div className="p-3.5 rounded-2xl bg-[#c85a32]/15 border border-[#c85a32]/30 text-[#c85a32]">
