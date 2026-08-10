@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   Sparkles,
   Search,
@@ -12,10 +13,10 @@ import {
   ArrowUpRight,
   ShieldCheck,
   Award,
-  Terminal
+  Terminal,
+  Zap,
+  Cpu
 } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface Step {
   num: string;
@@ -113,7 +114,7 @@ function StepCard({ step }: { step: Step }) {
           setHasStarted(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     if (cardRef.current) {
@@ -123,26 +124,26 @@ function StepCard({ step }: { step: Step }) {
     return () => observer.disconnect();
   }, [hasStarted]);
 
-  // Card Title Typewriter Effect
+  // Phase 1: Card Title Typewriter Effect
   useEffect(() => {
     if (!hasStarted) return;
     if (displayedTitle.length < step.title.length) {
       const timeout = setTimeout(() => {
         setDisplayedTitle(step.title.slice(0, displayedTitle.length + 1));
-      }, 35);
+      }, 30);
       return () => clearTimeout(timeout);
     } else {
       setIsTitleDone(true);
     }
   }, [hasStarted, displayedTitle, step.title]);
 
-  // Card Description Typewriter Effect
+  // Phase 2: Card Primary Description Typewriter Effect
   useEffect(() => {
     if (!isTitleDone) return;
     if (displayedDesc.length < step.desc.length) {
       const timeout = setTimeout(() => {
         setDisplayedDesc(step.desc.slice(0, displayedDesc.length + 1));
-      }, 15);
+      }, 12);
       return () => clearTimeout(timeout);
     } else {
       setIsDescDone(true);
@@ -152,17 +153,22 @@ function StepCard({ step }: { step: Step }) {
   const Icon = step.icon;
 
   return (
-    <div
+    <motion.div
       ref={cardRef}
-      className="w-[350px] sm:w-[420px] md:w-[470px] h-[410px] sm:h-[430px] shrink-0 bg-[#121212]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 border border-[#D4AF37]/30 shadow-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#D4AF37] hover:shadow-[0_0_50px_rgba(212,175,55,0.18)] cursor-pointer"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ y: -6, scale: 1.01 }}
+      className="w-full bg-[#121212]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 border border-[#D4AF37]/30 shadow-2xl relative overflow-hidden flex flex-col justify-between group transition-all duration-500 hover:border-[#D4AF37] hover:shadow-[0_0_50px_rgba(212,175,55,0.18)] cursor-pointer"
     >
-      {/* Champagne Gold Faded Background Index Watermark */}
-      <span className="absolute -right-3 -top-6 text-[120px] sm:text-[150px] font-serif font-extrabold text-[#D4AF37]/10 select-none pointer-events-none group-hover:text-[#D4AF37]/22 transition-colors duration-700 leading-none">
+      {/* Faded Champagne Gold Background Watermark Index */}
+      <span className="absolute -right-2 -top-6 text-[120px] sm:text-[150px] font-serif font-extrabold text-[#D4AF37]/10 select-none pointer-events-none group-hover:text-[#D4AF37]/22 transition-colors duration-500 leading-none">
         {step.num}
       </span>
 
-      {/* Card Header: Icon, Label & Status Tag */}
-      <div className="flex items-center justify-between gap-4 relative z-10">
+      {/* Top Header Pill Row */}
+      <div className="flex items-center justify-between gap-4 relative z-10 mb-6">
         <div className="flex items-center gap-3">
           <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-br from-[#D4AF37]/20 to-[#AA771C]/10 border border-[#D4AF37]/40 text-[#D4AF37] shadow-sm group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-500">
             <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -183,30 +189,33 @@ function StepCard({ step }: { step: Step }) {
         </div>
       </div>
 
-      {/* Card Body: Typewriter Title & Description */}
-      <div className="relative z-10 my-auto">
-        <h3 className="font-serif text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-white via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent mb-3 leading-snug min-h-[2.75rem]">
+      {/* Sequential Typewriter Title & Description */}
+      <div className="relative z-10 mb-6">
+        <h3 className="font-serif text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-white via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent mb-3 leading-snug min-h-[2.5rem]">
           {displayedTitle}
           {hasStarted && !isTitleDone && (
-            <span className="inline-block animate-pulse text-[#D4AF37] ml-0.5 font-sans font-normal">|</span>
+            <span className="inline-block animate-pulse text-[#D4AF37] ml-1 font-sans font-normal">|</span>
           )}
         </h3>
 
-        <p className="text-stone-300 text-xs sm:text-sm leading-relaxed font-medium min-h-[3.8rem]">
+        <p className="text-stone-300 text-xs sm:text-sm leading-relaxed font-medium min-h-[3.2rem]">
           {displayedDesc}
           {isTitleDone && !isDescDone && (
-            <span className="inline-block animate-pulse text-[#D4AF37] ml-0.5 font-sans font-normal">|</span>
+            <span className="inline-block animate-pulse text-[#D4AF37] ml-1 font-sans font-normal">|</span>
           )}
         </p>
       </div>
 
       {/* Deliverable Tags Grid */}
-      <div className="relative z-10 mb-4">
+      <div className="relative z-10 mb-6">
+        <span className="text-[10px] uppercase font-bold text-stone-500 tracking-wider block mb-2.5">
+          Key Outputs & Deliverables
+        </span>
         <div className="flex flex-wrap gap-2">
           {step.deliverables.map((item) => (
             <span
               key={item}
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-300 px-3 py-1 rounded-xl bg-[#1c1c1c] border border-[#D4AF37]/20 group-hover:border-[#D4AF37]/40 transition-colors"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-300 px-3.5 py-1.5 rounded-xl bg-[#1c1c1c] border border-[#D4AF37]/25 group-hover:border-[#D4AF37]/45 transition-colors"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
               {item}
@@ -215,29 +224,28 @@ function StepCard({ step }: { step: Step }) {
         </div>
       </div>
 
-      {/* Card Footer: Detail Spec Link */}
+      {/* Card Footer Details */}
       <div className="pt-4 border-t border-[#D4AF37]/20 relative z-10 flex items-center justify-between text-xs text-stone-400">
-        <span className="flex items-center gap-1.5 font-mono text-[11px] text-stone-300">
-          <Terminal className="w-3.5 h-3.5 text-[#D4AF37]" />
-          {step.details}
+        <span className="flex items-center gap-2 font-mono text-[11px] text-stone-300">
+          <Terminal className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+          <span>{step.details}</span>
         </span>
-        <div className="p-1.5 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-300">
+        <div className="p-2 rounded-full bg-[#D4AF37]/15 text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-300 shrink-0 ml-3">
           <ArrowUpRight className="w-4 h-4" />
         </div>
       </div>
 
-    </div>
+    </motion.div>
   );
 }
 
 export default function Process() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
   const [headlineText, setHeadlineText] = useState("");
   const [headlineStarted, setHeadlineStarted] = useState(false);
   const fullHeadline = "ARCHITECTING DIGITAL EXCELLENCE FOR GLOBAL BRANDS";
 
-  // Headline Scroll-Triggered Typewriter Effect
+  // Scroll-Triggered Section Headline Typewriter
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -265,90 +273,97 @@ export default function Process() {
     }
   }, [headlineStarted, headlineText]);
 
-  // GSAP ScrollTrigger Pinned Horizontal Scroll
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const sectionEl = sectionRef.current;
-    const trackEl = trackRef.current;
-
-    if (!sectionEl || !trackEl) return;
-
-    const ctx = gsap.context(() => {
-      const getScrollAmount = () => {
-        return -(trackEl.scrollWidth - window.innerWidth + 120);
-      };
-
-      gsap.to(trackEl, {
-        x: getScrollAmount,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionEl,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => `+=${trackEl.scrollWidth - window.innerWidth + 240}`,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="process"
       ref={sectionRef}
-      className="relative bg-[#080808] text-white h-screen w-full overflow-hidden flex flex-col justify-between py-8 px-6 sm:px-12 md:px-16 select-none"
+      className="relative bg-[#080808] text-white py-16 md:py-28 px-6 overflow-hidden w-full select-none"
     >
-      {/* Ambient Champagne Gold Glow Effects */}
-      <div className="absolute top-1/4 left-10 w-[550px] h-[550px] bg-[#D4AF37]/8 rounded-full blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-[#AA771C]/6 rounded-full blur-[180px] pointer-events-none" />
+      {/* Background Radial Glow Effects */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D4AF37]/8 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#AA771C]/6 rounded-full blur-[160px] pointer-events-none" />
 
-      {/* Grid Overlay */}
+      {/* Warm Grid Overlay */}
       <div className="absolute inset-0 warm-grid opacity-25 pointer-events-none [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_70%,transparent_100%)]" />
 
-      {/* Section Top Header */}
-      <div className="w-full max-w-7xl mx-auto relative z-10 pt-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121212] border border-[#D4AF37]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#D4AF37] mb-3 shadow-2xl">
-          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
-          <span>Obsidian & Gold Workflow System</span>
-        </div>
+      <div className="w-full max-w-5xl mx-auto relative z-10">
         
-        {/* Scroll-Triggered Headline Typewriter */}
-        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-white via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent tracking-tight leading-tight min-h-[3.5rem]">
-          {headlineText}
-          {headlineStarted && headlineText.length < fullHeadline.length && (
-            <span className="inline-block animate-pulse text-[#D4AF37] ml-1 font-sans font-normal">|</span>
-          )}
-        </h2>
-      </div>
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#121212] border border-[#D4AF37]/40 text-xs uppercase font-bold tracking-[0.25em] text-[#D4AF37] mb-4 shadow-xl"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
+            <span>Obsidian & Gold Workflow System</span>
+          </motion.div>
 
-      {/* Pinned Horizontal GSAP Card Track */}
-      <div className="w-full max-w-7xl mx-auto overflow-hidden relative z-10 my-auto py-4">
-        <div
-          ref={trackRef}
-          className="flex gap-7 sm:gap-9 w-max items-center pr-28"
-        >
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-white via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent tracking-tight leading-tight min-h-[3.5rem] max-w-4xl mx-auto">
+            {headlineText}
+            {headlineStarted && headlineText.length < fullHeadline.length && (
+              <span className="inline-block animate-pulse text-[#D4AF37] ml-1 font-sans font-normal">|</span>
+            )}
+          </h2>
+
+          <p className="text-stone-300 max-w-xl mx-auto mt-4 text-sm md:text-base font-medium leading-relaxed">
+            An end-to-end 6-phase engineering workflow. Scroll down to watch each milestone card reveal its specification details sequentially.
+          </p>
+        </div>
+
+        {/* Vertical Stack Layout of Milestone Cards */}
+        <div className="flex flex-col gap-8 sm:gap-12 w-full max-w-4xl mx-auto relative z-10">
           {STEPS.map((step) => (
             <StepCard key={step.num} step={step} />
           ))}
         </div>
-      </div>
 
-      {/* Bottom Status Footer */}
-      <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-stone-400 font-bold uppercase tracking-widest relative z-10 pb-4 border-t border-[#D4AF37]/20 pt-4">
-        <span className="flex items-center gap-2.5 text-[#D4AF37]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_10px_#D4AF37]" />
-          SCROLL DOWN TO NAVIGATE CASE STUDY MILESTONES
-        </span>
-        <span className="text-stone-300 font-semibold tracking-[0.2em] flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#D4AF37]" />
-          01 → 06 OBSIDIAN WORKFLOW STEPS
-        </span>
-      </div>
+        {/* Section Bottom Summary Callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 sm:mt-28 p-6 sm:p-8 rounded-3xl bg-[#121212] border border-[#D4AF37]/40 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden"
+        >
+          <div className="flex items-center gap-4">
+            <div className="p-3.5 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] shrink-0">
+              <Cpu className="w-6 h-6" />
+            </div>
+            <div>
+              <h4 className="font-serif text-lg sm:text-xl font-bold text-white mb-1">
+                Ready to transform your product vision?
+              </h4>
+              <p className="text-xs sm:text-sm text-stone-300 font-medium">
+                6 Battle-tested phases designed for rapid validation, luxury UI, and global scale.
+              </p>
+            </div>
+          </div>
 
+          <a
+            href="https://wa.me/918791416116?text=Hi%20Dhairya,%20I'd%20like%20to%20discuss%20a%20project!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-7 py-3.5 rounded-2xl terracotta-button-gradient text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-xl hover:scale-105 active:scale-95 shrink-0 flex items-center gap-2 cursor-pointer"
+          >
+            <span>Start A Project</span>
+            <Zap className="w-4 h-4" />
+          </a>
+        </motion.div>
+
+        {/* Bottom Status Footer */}
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-400 font-bold uppercase tracking-widest relative z-10 mt-16 pt-6 border-t border-[#D4AF37]/20">
+          <span className="flex items-center gap-2.5 text-[#D4AF37]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-pulse shadow-[0_0_10px_#D4AF37]" />
+            VERTICAL WORKFLOW ROADMAP
+          </span>
+          <span className="text-stone-300 font-semibold tracking-[0.2em] flex items-center gap-2">
+            <Award className="w-4 h-4 text-[#D4AF37]" />
+            01 → 06 OBSIDIAN WORKFLOW STEPS
+          </span>
+        </div>
+
+      </div>
     </section>
   );
 }
