@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://dhairyagulati.co.in";
+const SITE_ORIGIN = "https://dhairyagulati.co.in";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -14,12 +14,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
       {
-        // Allow OpenAI's search crawler to discover public pages for ChatGPT Search.
+        // Search crawler used to surface public pages in ChatGPT Search.
         userAgent: "OAI-SearchBot",
         allow: "/",
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${SITE_ORIGIN}/sitemap.xml`,
   };
 }
